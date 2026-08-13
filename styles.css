@@ -353,10 +353,12 @@ p {
   border-color: rgba(88, 166, 255, 0.55);
 }
 
-.contents-scene {
+.contents-card img {
   width: 100%;
   height: 72px;
   display: block;
+  object-fit: cover;
+  filter: saturate(0.86) contrast(1.04);
 }
 
 .contents-card-body {
