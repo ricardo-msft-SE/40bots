@@ -318,6 +318,89 @@ p {
   margin-bottom: 30px;
 }
 
+.contents-section {
+  padding-top: 34px;
+}
+
+.contents-heading {
+  max-width: 720px;
+}
+
+.contents-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.contents-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.contents-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(88, 166, 255, 0.55);
+}
+
+.contents-card img {
+  width: 100%;
+  height: 142px;
+  object-fit: cover;
+  filter: saturate(0.8) contrast(1.02);
+}
+
+.contents-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 18px;
+}
+
+.contents-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 14px;
+  border-radius: 9px;
+  background: rgba(88, 166, 255, 0.15);
+  color: var(--secondary);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.contents-label {
+  margin-bottom: 6px;
+  color: var(--secondary);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.contents-card h3 {
+  margin-bottom: 8px;
+}
+
+.contents-card p {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.contents-card-featured {
+  grid-column: span 2;
+}
+
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(220px, 1fr));
@@ -734,6 +817,10 @@ p {
     grid-template-columns: 1fr;
   }
 
+  .contents-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .cio-chapters {
     grid-template-columns: 1fr 1fr;
   }
@@ -747,8 +834,13 @@ p {
   .cost-grid,
   .stage-checklist,
   .cio-story-intro,
-  .cio-chapters {
+  .cio-chapters,
+  .contents-grid {
     grid-template-columns: 1fr;
+  }
+
+  .contents-card-featured {
+    grid-column: auto;
   }
 
   .brand {
