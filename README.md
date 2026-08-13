@@ -1,31 +1,31 @@
 # 40 Boring Bots
 
-A practical proposal for identifying and prioritizing 40 AI agents, AI-powered workflows, and automation opportunities across an organization.
+A concise executive proposal for identifying, prioritizing, and scaling 40 practical AI agents and workflow automations across the organization.
 
 ## Why this initiative matters
 
-Most organizations do not need more AI hype. They need operational leverage. The 40 Boring Bots initiative is a disciplined portfolio approach to automating repetitive, costly, and error-prone work that is still being done manually.
+Most organizations do not need more AI hype. They need operating leverage. The 40 Boring Bots initiative focuses on repetitive, costly, and error-prone work that is still being done manually.
 
-This proposal focuses on a realistic set of opportunities that combine:
+This proposal targets high-value opportunities across:
 
-- AI chat assistants
-- AI-enabled workflow automation
+- AI-assisted operations
+- workflow automation
 - document understanding and summarization
-- routing and triage agents
-- internal knowledge and policy access tools
-- process optimization for high-volume operations
+- routing and triage support
+- internal knowledge and policy access
+- process optimization for high-volume work
 
 ## Executive summary
 
-The goal is not to deploy 40 chatbots for the sake of volume. The goal is to identify 40 meaningful opportunities, prioritize the best ones, and build a repeatable operating model for AI-enabled work.
+The goal is not to deploy 40 chatbots for the sake of volume. The goal is to identify 40 meaningful opportunities, prioritize the strongest ones, and establish a repeatable operating model for AI-enabled work.
 
 This creates value through:
 
 - lower operating cost
 - faster processing cycles
 - improved quality and consistency
-- reduced employee burden from repetitive tasks
-- better governance and accountability
+- reduced manual effort
+- stronger governance and accountability
 
 ## Local preview
 
