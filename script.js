@@ -10,6 +10,11 @@ const deploymentStages = {
       "Interview teams about pain points and handoffs",
       "Assess workflow volume, complexity, and error rates",
       "Rank opportunities by value, feasibility, and risk"
+    ],
+    tools: [
+      "Microsoft Foundry to map opportunity scenarios and agent personas",
+      "Microsoft Purview to inventory data sources and sensitivity labels",
+      "GitHub Copilot to draft discovery notes, use-case summaries, and decision memos"
     ]
   },
   requirements: {
@@ -23,6 +28,11 @@ const deploymentStages = {
       "Document required data sources and permissions",
       "Capture escalation, exception, and approval rules",
       "Set success metrics for speed, quality, and cost"
+    ],
+    tools: [
+      "Microsoft Foundry to define agent instructions, personas, and workflow boundaries",
+      "Microsoft Purview to validate classification, retention, and data-access rules",
+      "GitHub Copilot to generate requirement specs, acceptance criteria, and user stories"
     ]
   },
   planning: {
@@ -36,6 +46,11 @@ const deploymentStages = {
       "Define architecture, integration points, and data flow",
       "Assign delivery owners for design, implementation, and support",
       "Establish review gates for quality and risk"
+    ],
+    tools: [
+      "Microsoft Foundry to design agent architecture and deployment patterns",
+      "Microsoft Purview to review compliance, sensitivity, and governance requirements",
+      "GitHub Copilot to create implementation backlog, issue tracking notes, and release plans"
     ]
   },
   building: {
@@ -49,6 +64,11 @@ const deploymentStages = {
       "Connect to approved data sources and tools",
       "Define fallback responses and human handoff paths",
       "Test prompt quality, citations, and reliability"
+    ],
+    tools: [
+      "Microsoft Foundry to build and iterate agent prompts, tools, and retrieval patterns",
+      "Microsoft Purview to enforce data handling rules and detect sensitive content flows",
+      "GitHub Copilot to accelerate code generation, unit tests, and documentation across the build"
     ]
   },
   deploying: {
@@ -62,6 +82,11 @@ const deploymentStages = {
       "Verify access control, permissions, and routing",
       "Train users on workflows and escalation behavior",
       "Expand progressively based on actual performance"
+    ],
+    tools: [
+      "Microsoft Foundry to stage, test, and deploy approved agent experiences",
+      "Microsoft Purview to validate policy enforcement and audit readiness before rollout",
+      "GitHub Copilot to support release checklists, runbooks, and deployment documentation"
     ]
   },
   maintaining: {
@@ -75,6 +100,11 @@ const deploymentStages = {
       "Refresh prompts, templates, and knowledge sources",
       "Fix defects and edge cases as they appear",
       "Retire or redesign weak performing workflows"
+    ],
+    tools: [
+      "Microsoft Foundry to refine prompt, retrieval, and orchestration logic over time",
+      "Microsoft Purview to monitor policy drift and classify new data states",
+      "GitHub Copilot to propose code changes, patch notes, and maintenance documentation"
     ]
   },
   monitoring: {
@@ -88,6 +118,11 @@ const deploymentStages = {
       "Capture failure modes and low-confidence responses",
       "Alert on risk signals and unusual behavior",
       "Correlate performance with business outcomes"
+    ],
+    tools: [
+      "Microsoft Foundry to evaluate agent performance, prompt quality, and output consistency",
+      "Microsoft Purview to review data-access patterns and policy exceptions over time",
+      "GitHub Copilot to summarize incidents, draft remediation notes, and support issue triage"
     ]
   },
   securing: {
@@ -101,6 +136,11 @@ const deploymentStages = {
       "Protect secrets, tokens, and system identities",
       "Validate prompts and output against policy constraints",
       "Implement safe fallbacks and approval checkpoints"
+    ],
+    tools: [
+      "Microsoft Foundry to enforce safe agent behaviors and approval flows",
+      "Microsoft Purview to classify sensitive data, monitor DLP, and assess governance controls",
+      "GitHub Copilot to generate security checklists, guardrail notes, and code review prompts"
     ]
   },
   governing: {
@@ -114,6 +154,11 @@ const deploymentStages = {
       "Set policy standards for quality, privacy, and risk",
       "Track ROI and business value by use case",
       "Establish a portfolio management model for future expansion"
+    ],
+    tools: [
+      "Microsoft Foundry to manage agent lifecycle, deployment standards, and scorecards",
+      "Microsoft Purview to maintain governance posture, policy oversight, and compliance reporting",
+      "GitHub Copilot to draft governance docs, templates, and operating procedures for the portfolio"
     ]
   }
 };
@@ -131,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const stageTitle = document.getElementById("stage-title");
   const stageSummary = document.getElementById("stage-summary");
   const stageChecklist = document.getElementById("stage-checklist");
+  const stageTools = document.getElementById("stage-tools");
   const stageOutcome = document.getElementById("stage-outcome");
 
   function renderStage(stageKey) {
@@ -149,6 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     stageSummary.textContent = stage.summary;
     stageOutcome.textContent = stage.outcome;
     stageChecklist.innerHTML = stage.checklist.map((item) => `<li>${item}</li>`).join("");
+    stageTools.innerHTML = stage.tools.map((tool) => `<li>${tool}</li>`).join("");
   }
 
   stageButtons.forEach((button) => {
