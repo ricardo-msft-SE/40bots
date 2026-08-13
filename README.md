@@ -41,6 +41,22 @@ Then open http://localhost:8000 in a browser.
 
 This site is set up to deploy automatically via GitHub Pages using a GitHub Actions workflow on pushes to the main branch.
 
+## Detailed deployment plan
+
+The interactive deployment visual links to a full implementation guide for each phase in [`deployment-plan/`](deployment-plan/):
+
+- [`discovery/`](deployment-plan/discovery/README.md) — build and rank the opportunity inventory
+- [`requirements/`](deployment-plan/requirements/README.md) — define scope, permissions, tests, and KPIs
+- [`planning/`](deployment-plan/planning/README.md) — establish architecture, ownership, environments, and release gates
+- [`building/`](deployment-plan/building/README.md) — implement grounded, tested, reusable agents
+- [`deploying/`](deployment-plan/deploying/README.md) — release through a controlled pilot and go/no-go review
+- [`maintaining/`](deployment-plan/maintaining/README.md) — operate, refresh, evaluate, and retire agents
+- [`monitoring/`](deployment-plan/monitoring/README.md) — measure quality, reliability, adoption, and risk
+- [`securing/`](deployment-plan/securing/README.md) — protect identities, data, tools, and users
+- [`governing/`](deployment-plan/governing/README.md) — manage the 40-agent portfolio and lifecycle
+
+Each guide uses Microsoft Foundry, Microsoft Purview, GitHub Copilot, and supporting Microsoft services where appropriate.
+
 ## Governance and risk posture
 
 The proposal assumes AI governance is a first-class requirement, not a final layer.

@@ -566,6 +566,23 @@ p {
   font-size: 0.92rem;
 }
 
+.stage-plan-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin: 4px 0 18px;
+  color: var(--text);
+  font-weight: 700;
+  border-bottom: 1px solid rgba(124, 231, 210, 0.5);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.stage-plan-link:hover {
+  color: var(--secondary);
+  border-color: var(--secondary);
+}
+
 .stage-outcomes {
   display: flex;
   flex-direction: column;
