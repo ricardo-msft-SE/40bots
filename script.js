@@ -2,7 +2,7 @@ const deploymentStages = {
   discovery: {
     phase: "Phase 1",
     title: "Discovery",
-    planPath: "deployment-plan/discovery/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/discovery",
     executive:
       "Discovery turns a broad AI ambition into an investment thesis. Leaders leave this phase with a small set of business problems worth solving, accountable owners, and enough evidence to decide where the first wave should begin.",
     summary:
@@ -23,7 +23,7 @@ const deploymentStages = {
   requirements: {
     phase: "Phase 2",
     title: "Requirements",
-    planPath: "deployment-plan/requirements/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/requirements",
     executive:
       "Requirements convert enthusiasm into a contract. The organization agrees what each agent may do, what it must refuse, which data it may use, how humans stay accountable, and how success will be measured.",
     summary:
@@ -44,7 +44,7 @@ const deploymentStages = {
   planning: {
     phase: "Phase 3",
     title: "Planning",
-    planPath: "deployment-plan/planning/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/planning",
     executive:
       "Planning makes the portfolio repeatable. Instead of designing 40 one-off projects, the team establishes a common Microsoft architecture, delivery model, ownership structure, and approval path that can be reused wave after wave.",
     summary:
@@ -65,7 +65,7 @@ const deploymentStages = {
   building: {
     phase: "Phase 4",
     title: "Building",
-    planPath: "deployment-plan/building/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/building",
     executive:
       "Building is where the approved business case becomes a controlled product. Teams use Foundry to compose the agent, Purview to keep data boundaries visible, and GitHub Copilot to accelerate delivery without outsourcing engineering judgment.",
     summary:
@@ -86,7 +86,7 @@ const deploymentStages = {
   deploying: {
     phase: "Phase 5",
     title: "Deploying",
-    planPath: "deployment-plan/deploying/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/deploying",
     executive:
       "Deployment is a business decision, not a button press. A limited pilot proves that the agent is useful, accessible, supportable, and safe before the organization expands it to a larger audience.",
     summary:
@@ -107,7 +107,7 @@ const deploymentStages = {
   maintaining: {
     phase: "Phase 6",
     title: "Maintaining",
-    planPath: "deployment-plan/maintaining/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/maintaining",
     executive:
       "Maintenance protects the value of the portfolio after launch. Each agent receives an operating rhythm for data refresh, evaluation, defect correction, cost review, and retirement when its business case no longer holds.",
     summary:
@@ -128,7 +128,7 @@ const deploymentStages = {
   monitoring: {
     phase: "Phase 7",
     title: "Monitoring",
-    planPath: "deployment-plan/monitoring/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/monitoring",
     executive:
       "Monitoring turns agent behavior into management information. Leaders can see whether the portfolio is delivering quality and capacity, while operators can detect failures, drift, and risk before they become expensive incidents.",
     summary:
@@ -149,7 +149,7 @@ const deploymentStages = {
   securing: {
     phase: "Phase 8",
     title: "Securing",
-    planPath: "deployment-plan/securing/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/securing",
     executive:
       "Security establishes the trust boundary for every agent. Identity, data access, tools, secrets, and high-impact actions are deliberately constrained so scale does not create an uncontrolled path into organizational systems.",
     summary:
@@ -170,7 +170,7 @@ const deploymentStages = {
   governing: {
     phase: "Phase 9",
     title: "Governing",
-    planPath: "deployment-plan/governing/README.md",
+    planPath: "https://github.com/ricardo-msft-SE/40bots/tree/main/deployment-plan/governing",
     executive:
       "Governance converts a collection of projects into an institutional capability. The portfolio board can compare value, risk, cost, and control evidence across all 40 agents and make disciplined decisions about investment, pause, or retirement.",
     summary:
