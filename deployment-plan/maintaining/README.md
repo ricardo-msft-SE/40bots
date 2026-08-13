@@ -19,5 +19,17 @@ Keep each agent useful, accurate, supportable, and aligned with changing process
 - Versioned change history and evaluation comparison.
 - Retirement or redesign decision when applicable.
 
+## Working roles
+- Service owner: chairs the recurring review and decides whether the agent remains fit for purpose.
+- Technical maintainer: owns defects, integrations, versions, and rollback.
+- Data steward: owns source freshness, classification, and access changes.
+- Business analyst: compares usage and quality with the original business case.
+
+## Change discipline
+Treat model, prompt, retrieval, source, permission, connector, and policy changes as release-worthy changes. Record what changed, why it changed, which evaluations ran, who approved it, and how users will notice the difference.
+
+## Decision criteria
+Improve agents that show strong demand but predictable failure modes. Redesign agents whose operating cost or support burden exceeds their value. Retire agents with no accountable owner, no meaningful adoption, stale sources, or repeated failure to meet the agreed service level.
+
 ## Exit gate
 Every production agent has a current owner, recent evaluation evidence, current source data, and a documented lifecycle decision.

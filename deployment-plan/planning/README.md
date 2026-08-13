@@ -19,5 +19,17 @@ Design a repeatable delivery pattern for the portfolio, including environments, 
 - GitHub repository and branching/review model.
 - Release-gate checklist and wave plan.
 
+## Working roles
+- Portfolio lead: owns sequencing, dependencies, and investment decisions.
+- Platform team: owns Foundry resources, Entra integration, environments, and deployment paths.
+- Governance lead: owns Purview evidence, policy interpretation, and risk-tier alignment.
+- Engineering lead: owns reusable templates, CI/CD, test automation, and technical standards.
+
+## Planning artifacts
+Create one architecture decision record per reusable pattern, an environment matrix, a dependency map, a RACI, a wave backlog, and a release calendar. Define the minimum evidence required at discovery, build, pilot, production, and retirement so teams do not have to renegotiate the process for every agent.
+
+## Decision criteria
+Choose patterns that reduce variation across agents: shared identity, common evaluation, consistent logging, standard repository structure, and repeatable approval gates. Escalate exceptions rather than allowing every project to create its own operating model.
+
 ## Exit gate
 The team can explain how an agent moves from a GitHub change to a tested Foundry deployment with documented approvals and rollback.

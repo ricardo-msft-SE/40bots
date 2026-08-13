@@ -19,5 +19,17 @@ Create a ranked inventory of business opportunities for 40 agents. Start with wo
 - Scored shortlist for wave 1.
 - Decision memo documenting included, deferred, and rejected use cases.
 
+## Working roles
+- Business sponsor: confirms the problem is important enough to fund.
+- Process owner: provides the current-state workflow, measures, and exceptions.
+- Data steward: confirms source ownership, classification, quality, and access.
+- AI product lead: applies the scoring model and prepares the portfolio recommendation.
+
+## Evidence to capture
+Store the interview notes, process map, source inventory, Purview findings, scoring worksheet, and decision memo with the work item. Use a stable opportunity ID so the same record can follow the use case through requirements, build, pilot, and governance.
+
+## Decision criteria
+Advance opportunities that have meaningful volume, an observable baseline, bounded data access, a willing owner, and a credible human escalation path. Defer opportunities where the process is undocumented, the source data is uncontrolled, or the proposed agent would make an unreviewed high-impact decision.
+
 ## Exit gate
 Every selected use case has a named owner, a measurable business outcome, identified data sources, and an initial risk classification.

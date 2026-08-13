@@ -19,5 +19,17 @@ Turn each selected opportunity into a testable agent specification with explicit
 - Acceptance-test catalog.
 - KPI baseline and target values.
 
+## Working roles
+- Product owner: signs off on scope, outcomes, and acceptance criteria.
+- Solution architect: converts requirements into Foundry, identity, retrieval, and integration decisions.
+- Privacy and security reviewers: approve data handling, access, and escalation controls.
+- Test lead: owns representative examples, adversarial cases, and regression evidence.
+
+## Minimum specification
+The specification should contain the agent purpose, supported intents, persona and channel, data sources, retrieval rules, tools, write permissions, refusal language, citation requirements, human handoff, retention expectations, KPIs, and named approvers. Each requirement should map to a test, control, or operational owner.
+
+## Decision criteria
+Reject vague requirements such as “answer questions better.” Replace them with observable behavior such as “answer the five approved intents using approved sources, provide citations, and escalate when confidence or permissions are insufficient.”
+
 ## Exit gate
 No build work starts until scope, data boundaries, escalation behavior, acceptance tests, and accountable owners are approved.

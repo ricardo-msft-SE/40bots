@@ -19,5 +19,17 @@ Release approved agents in controlled waves with verified identity, permissions,
 - Purview control verification.
 - Go/no-go decision with rollback outcome if needed.
 
+## Working roles
+- Release owner: coordinates the deployment, evidence, and go/no-go meeting.
+- Business owner: confirms pilot users, expected outcomes, and adoption readiness.
+- Operations owner: confirms support, incident handling, and rollback coverage.
+- Security and data reviewers: confirm production access and policy controls.
+
+## Pilot design
+Use a defined cohort, a fixed observation period, and a baseline comparison. Collect user feedback alongside objective measures such as completion time, escalation, rework, citation quality, and incidents. Set expansion thresholds before the pilot begins so enthusiasm does not replace evidence.
+
+## Decision criteria
+Go forward when the agent meets quality and safety thresholds, users know when to rely on it, support can handle failures, and the business owner accepts residual risk. Pause or roll back when access is wrong, sources are unreliable, incidents exceed tolerance, or the intended outcome is not improving.
+
 ## Exit gate
 The agent is live for an approved audience, support is ready, access is verified, and the pilot has evidence that the business outcome is improving without unacceptable risk.

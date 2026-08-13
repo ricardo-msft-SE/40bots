@@ -19,5 +19,17 @@ Detect quality, reliability, adoption, security, and business problems early eno
 - Foundry evaluation trend and regression record.
 - Monthly portfolio review with actions.
 
+## Working roles
+- Service operations: owns alerts, incident response, and availability.
+- AI quality lead: reviews Foundry evaluations, groundedness, relevance, and drift.
+- Data governance lead: reviews Purview activity, policy exceptions, and access anomalies.
+- Business owner: interprets whether technical performance is producing business value.
+
+## Monitoring rhythm
+Review alerts continuously, service health weekly, quality and cost monthly, and portfolio trends quarterly. Separate leading indicators such as latency, failed tools, and low-confidence responses from lagging indicators such as rework, customer satisfaction, and capacity released.
+
+## Decision criteria
+An alert must have an owner, threshold, severity, and action. Avoid dashboards that only display activity. Every metric should support a decision: investigate, contain, remediate, expand, pause, or retire.
+
 ## Exit gate
 The team can identify a failing agent, determine the affected request path, contain the issue, notify the right owner, and prove the corrective action.

@@ -19,5 +19,17 @@ Implement agents using reusable patterns for grounding, tools, safety, evaluatio
 - Evaluation results and defect log.
 - Support runbook and rollback plan.
 
+## Working roles
+- Agent engineer: builds the Foundry configuration, orchestration, retrieval, and tools.
+- Application engineer: implements the user channel, identity flow, adapters, and telemetry.
+- Data steward: validates source content, permissions, freshness, and citations.
+- Reviewer: checks generated code, prompt changes, tests, and operational readiness.
+
+## Build sequence
+Build the narrowest useful path first, then add one source or tool at a time. After each addition, run the targeted evaluation set and inspect traces. Keep prompts, tool schemas, test data, and expected behaviors versioned together so a regression can be reproduced and rolled back.
+
+## Decision criteria
+Do not promote an agent because it produces fluent answers. Promote it only when it is grounded in approved data, respects identity boundaries, handles uncertainty, completes the intended workflow, and has evidence that a human can support it.
+
 ## Exit gate
 The agent meets acceptance thresholds, uses only approved data and tools, and has passed business, security, and operational review in a non-production environment.

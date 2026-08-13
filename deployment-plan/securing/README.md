@@ -19,5 +19,17 @@ Protect data, identities, tools, and users from unauthorized access, leakage, un
 - Purview policy and audit evidence.
 - Security test results and risk register.
 
+## Working roles
+- Security architect: owns the threat model and control requirements.
+- Identity owner: owns Entra groups, managed identities, privileged access, and access reviews.
+- Data protection owner: owns Purview labels, DLP, retention, and audit evidence.
+- Engineering owner: fixes vulnerabilities, unsafe tool paths, and insecure defaults.
+
+## Control priorities
+Start with identity and authorization, then data boundaries, secrets, tool permissions, prompt-injection resistance, output handling, and auditability. A content filter is not a substitute for least privilege or human approval on high-impact actions.
+
+## Decision criteria
+Accept only risks that have a documented owner, expiry or review date, compensating control, and business approval. Block release when the agent can cross a data boundary, expose secrets, or execute a consequential action without the required authorization.
+
 ## Exit gate
 The agent has a bounded identity, bounded data and tool access, tested abuse cases, protected secrets, and an owner for every unresolved risk.

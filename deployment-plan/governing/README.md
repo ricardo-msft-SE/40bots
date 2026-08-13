@@ -19,5 +19,17 @@ Run 40 agents as a managed portfolio with consistent standards, accountable owne
 - Standard templates for build, release, monitoring, and retirement.
 - Quarterly portfolio scorecard and decisions.
 
+## Working roles
+- Portfolio board: sets standards, resolves exceptions, and allocates investment.
+- Agent owner: remains accountable for purpose, outcomes, users, and lifecycle decisions.
+- Platform owner: maintains the Foundry and GitHub delivery patterns.
+- Risk and data owners: maintain policy evidence, risk acceptance, and review cadence.
+
+## Portfolio operating rhythm
+Run monthly operational reviews for incidents, quality, adoption, and cost. Run quarterly business reviews for value, risk, policy posture, technical debt, and lifecycle state. Keep the registry current enough that an approver can understand an agent without searching across project channels.
+
+## Decision criteria
+Scale patterns that demonstrate value with strong control evidence. Pause agents with unresolved risk or declining quality. Retire agents when the process changes, the source of truth moves, the owner leaves, or the economics no longer justify continued operation.
+
 ## Exit gate
 The organization can answer what every agent does, who owns it, what data it uses, how it is controlled, whether it creates value, and when it should be changed or retired.

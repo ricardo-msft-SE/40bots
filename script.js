@@ -3,6 +3,8 @@ const deploymentStages = {
     phase: "Phase 1",
     title: "Discovery",
     planPath: "deployment-plan/discovery/README.md",
+    executive:
+      "Discovery turns a broad AI ambition into an investment thesis. Leaders leave this phase with a small set of business problems worth solving, accountable owners, and enough evidence to decide where the first wave should begin.",
     summary:
       "Map the work, identify the highest-value opportunities, and prioritize the use cases most likely to create measurable productivity gains with manageable risk.",
     outcome: "A validated shortlist of use cases and ownership.",
@@ -22,6 +24,8 @@ const deploymentStages = {
     phase: "Phase 2",
     title: "Requirements",
     planPath: "deployment-plan/requirements/README.md",
+    executive:
+      "Requirements convert enthusiasm into a contract. The organization agrees what each agent may do, what it must refuse, which data it may use, how humans stay accountable, and how success will be measured.",
     summary:
       "Translate the best opportunities into clear scope, business rules, success metrics, and operational guardrails before any build starts.",
     outcome: "Well-defined requirements with measurable acceptance criteria.",
@@ -41,6 +45,8 @@ const deploymentStages = {
     phase: "Phase 3",
     title: "Planning",
     planPath: "deployment-plan/planning/README.md",
+    executive:
+      "Planning makes the portfolio repeatable. Instead of designing 40 one-off projects, the team establishes a common Microsoft architecture, delivery model, ownership structure, and approval path that can be reused wave after wave.",
     summary:
       "Create the rollout structure, sequence the work, and set governance practices so each agent is introduced with a clear operating model.",
     outcome: "A phased delivery plan with owners, milestones, and controls.",
@@ -60,6 +66,8 @@ const deploymentStages = {
     phase: "Phase 4",
     title: "Building",
     planPath: "deployment-plan/building/README.md",
+    executive:
+      "Building is where the approved business case becomes a controlled product. Teams use Foundry to compose the agent, Purview to keep data boundaries visible, and GitHub Copilot to accelerate delivery without outsourcing engineering judgment.",
     summary:
       "Develop the agents, workflows, prompt patterns, and integrations in a way that is reusable, transparent, and easy to test in production-like conditions.",
     outcome: "Working agents with tested patterns and reusable components.",
@@ -79,6 +87,8 @@ const deploymentStages = {
     phase: "Phase 5",
     title: "Deploying",
     planPath: "deployment-plan/deploying/README.md",
+    executive:
+      "Deployment is a business decision, not a button press. A limited pilot proves that the agent is useful, accessible, supportable, and safe before the organization expands it to a larger audience.",
     summary:
       "Roll out the agents in controlled waves, start with high-confidence use cases, and validate business impact before expanding to more teams.",
     outcome: "Confident production release with operating readiness.",
@@ -98,6 +108,8 @@ const deploymentStages = {
     phase: "Phase 6",
     title: "Maintaining",
     planPath: "deployment-plan/maintaining/README.md",
+    executive:
+      "Maintenance protects the value of the portfolio after launch. Each agent receives an operating rhythm for data refresh, evaluation, defect correction, cost review, and retirement when its business case no longer holds.",
     summary:
       "Keep the portfolio healthy with regular updates, performance reviews, and a repeatable playbook for improving each workflow over time.",
     outcome: "A sustainable operating rhythm for all agents and automations.",
@@ -117,6 +129,8 @@ const deploymentStages = {
     phase: "Phase 7",
     title: "Monitoring",
     planPath: "deployment-plan/monitoring/README.md",
+    executive:
+      "Monitoring turns agent behavior into management information. Leaders can see whether the portfolio is delivering quality and capacity, while operators can detect failures, drift, and risk before they become expensive incidents.",
     summary:
       "Create continuous visibility into quality, latency, adoption, and error patterns so issues are detected before they become operational risk.",
     outcome: "Operational observability across the full portfolio.",
@@ -136,6 +150,8 @@ const deploymentStages = {
     phase: "Phase 8",
     title: "Securing",
     planPath: "deployment-plan/securing/README.md",
+    executive:
+      "Security establishes the trust boundary for every agent. Identity, data access, tools, secrets, and high-impact actions are deliberately constrained so scale does not create an uncontrolled path into organizational systems.",
     summary:
       "Protect against data leakage, misuse, and unsafe automation with strong access boundaries, sensitive-data handling, and explicit safeguards.",
     outcome: "A controlled and defensible operating model for AI usage.",
@@ -155,6 +171,8 @@ const deploymentStages = {
     phase: "Phase 9",
     title: "Governing",
     planPath: "deployment-plan/governing/README.md",
+    executive:
+      "Governance converts a collection of projects into an institutional capability. The portfolio board can compare value, risk, cost, and control evidence across all 40 agents and make disciplined decisions about investment, pause, or retirement.",
     summary:
       "Institutionalize ownership, accountability, policy review, and portfolio management so the organization can scale from a handful of pilots to 40 or more agents without chaos.",
     outcome: "A governed AI portfolio with clear accountability and repeatable scale.",
@@ -184,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const stagePhase = document.getElementById("stage-phase");
   const stageTitle = document.getElementById("stage-title");
   const stageSummary = document.getElementById("stage-summary");
+  const stageExecutive = document.getElementById("stage-executive");
   const stageChecklist = document.getElementById("stage-checklist");
   const stageTools = document.getElementById("stage-tools");
   const stagePlanLink = document.getElementById("stage-plan-link");
@@ -203,6 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
     stagePhase.textContent = stage.phase;
     stageTitle.textContent = stage.title;
     stageSummary.textContent = stage.summary;
+    stageExecutive.textContent = stage.executive;
     stageOutcome.textContent = stage.outcome;
     stagePlanLink.href = stage.planPath;
     stagePlanLink.innerHTML = `Open the detailed ${stage.title} plan <span aria-hidden="true">&#8594;</span>`;
