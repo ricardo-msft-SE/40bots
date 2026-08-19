@@ -71,6 +71,14 @@ Key controls include:
 - privacy, security, and retention review
 - explicit decision rules for where AI should not be used
 
+## Governance and security story with Microsoft Agent 365, Purview, and Defender for Cloud
+
+The Microsoft Agent 365 story is strongest when it is framed as a governed productivity platform, not simply a set of productivity features. Microsoft 365 agents can accelerate knowledge work, automate repetitive tasks, and connect employees to the systems they already rely on—but the trust model matters as much as the speed gain. The design must include explicit access controls, clear ownership, approved data sources, and review paths for any high-impact or sensitive workflow.
+
+Microsoft Purview provides the governance foundation. It helps organizations classify data, define retention and policy boundaries, review lineage and access patterns, and maintain evidence for compliance and risk review. That makes it easier to govern the agent estate as it grows from pilots to a broader portfolio.
+
+Microsoft Defender for Cloud strengthens the security posture by continuously identifying risks in the cloud environment, tracking posture drift, and helping teams prioritize remediation. Together, these controls create the operating story: Microsoft 365 agents deliver value, Purview provides governance evidence, and Defender for Cloud helps keep the environment secure, resilient, and aligned to policy.
+
 ## Repo structure
 
 - `index.html` — executive proposal landing page
