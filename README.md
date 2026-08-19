@@ -75,6 +75,12 @@ Key controls include:
 
 The Microsoft Agent 365 story is strongest when it is framed as a governed productivity platform, not simply a set of productivity features. Microsoft 365 agents can accelerate knowledge work, automate repetitive tasks, and connect employees to the systems they already rely on—but the trust model matters as much as the speed gain. The design must include explicit access controls, clear ownership, approved data sources, and review paths for any high-impact or sensitive workflow.
 
+Examples for the 40-bots approach include:
+
+- Microsoft 365 agents: a case triage bot that only reads approved support records and escalates exceptions; an HR knowledge bot that answers policy questions without exposing payroll or personal data; and a sales response assistant that drafts proposals from approved CRM data while blocking access to regulated information unless the user has the right permission.
+- Microsoft Purview: data classification that determines which sources are allowed per bot; retention and DLP rules that prevent invoice, ticket, and knowledge agents from retaining or sharing data beyond policy; and access monitoring that reviews unusual agent usage across the portfolio to support investigation and governance.
+- Microsoft Defender for Cloud: secure hosting checks before each bot is deployed; connector hardening for SharePoint, Dataverse, and API integrations with least-privilege access; and risk prioritization that helps the organization fix the most critical environment issues before scaling the 40-bot portfolio.
+
 Microsoft Purview provides the governance foundation. It helps organizations classify data, define retention and policy boundaries, review lineage and access patterns, and maintain evidence for compliance and risk review. That makes it easier to govern the agent estate as it grows from pilots to a broader portfolio.
 
 Microsoft Defender for Cloud strengthens the security posture by continuously identifying risks in the cloud environment, tracking posture drift, and helping teams prioritize remediation. Together, these controls create the operating story: Microsoft 365 agents deliver value, Purview provides governance evidence, and Defender for Cloud helps keep the environment secure, resilient, and aligned to policy.
