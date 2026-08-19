@@ -77,7 +77,7 @@ The Microsoft Agent 365 story is strongest when it is framed as a governed produ
 
 Examples for the 40-bots approach include:
 
-- Use Microsoft 365 agents to monitor support workflows: a case triage bot that only reads approved support records and escalates exceptions; an HR knowledge bot that answers policy questions without exposing payroll or personal data; and a sales response assistant that drafts proposals from approved CRM data while blocking access to regulated information unless the user has the right permission.
+- Use Agent 365 to monitor support workflows: a case triage bot that only reads approved support records and escalates exceptions; an HR knowledge bot that answers policy questions without exposing payroll or personal data; and a sales response assistant that drafts proposals from approved CRM data while blocking access to regulated information unless the user has the right permission.
 - Use Purview to govern data boundaries: classify customer, employee, financial, and regulated content so each 40-bots use case knows which sources are allowed and which are prohibited; enforce retention and DLP rules so invoice, ticket, and knowledge agents cannot retain or share data beyond policy; and review unusual agent usage across the portfolio to support investigation and governance.
 - Use Defender for Cloud to secure the agent platform: validate cloud configuration before each bot is deployed; harden SharePoint, Dataverse, and API connectors with least-privilege access; and prioritize the highest-risk configuration gaps across the 40-bot estate before scaling further.
 
