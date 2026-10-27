@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "value": "which-tool-game"
+    },
+    "location": {
+      "value": "eastus2"
+    },
+    "principalId": {
+      "value": "01400557-9d79-4eb0-939d-7034d2108ca5"
+    },
+    "vnetEnabled": {
+      "value": true
+    },
+    "presenterObjectId": {
+      "value": "01400557-9d79-4eb0-939d-7034d2108ca5"
+    },
+    "resourceGroupName": {
+      "value": "rg-which-tool-game"
+    },
+    "modelEndpoint": {
+      "value": "https://ohsupparfp-resource.cognitiveservices.azure.com/"
+    },
+    "apiAudience": {
+      "value": "00000000-0000-0000-0000-000000000000"
+    }
+  }
+}

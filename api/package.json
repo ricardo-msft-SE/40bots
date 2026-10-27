@@ -1,0 +1,20 @@
+{
+  "name": "which-tool-api",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "func start",
+    "test": "node --test test/*.test.mjs"
+  },
+  "main": "src/index.mjs",
+  "dependencies": {
+    "@azure/data-tables": "^13.3.0",
+    "@azure/functions": "^4.7.2",
+    "@azure/identity": "^4.6.0",
+    "40-boring-bots-site": "file:..",
+    "jose": "^6.0.0"
+  }
+}

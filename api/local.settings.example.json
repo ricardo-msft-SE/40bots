@@ -1,0 +1,19 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "ENTRA_TENANT_ID": "YOUR-TENANT-GUID",
+    "ENTRA_AUDIENCE": "YOUR-API-APPLICATION-CLIENT-ID",
+    "ENTRA_SCOPE": "Recommend",
+    "PRESENTER_OBJECT_IDS": "COMMA-SEPARATED-USER-OBJECT-GUIDS",
+    "ALLOWED_ORIGINS": "http://localhost:8000,https://YOUR-ACCOUNT.github.io",
+    "AZURE_OPENAI_ENDPOINT": "https://YOUR-RESOURCE.openai.azure.com",
+    "AZURE_OPENAI_DEPLOYMENT": "YOUR-STRUCTURED-OUTPUT-MODEL-DEPLOYMENT",
+    "AZURE_OPENAI_API_VERSION": "2024-10-21",
+    "QUOTA_TABLE_ENDPOINT": "https://YOUR-STORAGE.table.core.windows.net",
+    "QUOTA_TABLE_NAME": "ToolGameQuota",
+    "REQUESTS_PER_MINUTE": "10",
+    "REQUESTS_PER_DAY": "100"
+  }
+}

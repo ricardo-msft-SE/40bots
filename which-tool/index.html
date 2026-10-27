@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Which Tool Should I Use? | 40 Boring Bots</title>
+    <meta name="description" content="A water-utility-themed game for finding the right Microsoft AI starting point." />
+    <script>
+      (() => {
+        const param = new URLSearchParams(window.location.search).get("scoutTheme");
+        const theme = ["light", "dark"].includes(param) ? param :
+          (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.mjs"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a href="../" class="home-link">40 boring bots <span aria-hidden="true">/</span> The AI pump station</a>
+      <div class="toolbar">
+        <span id="mode-badge" class="badge">Offline rules</span>
+        <button id="theme" type="button" class="quiet">Light / dark</button>
+        <button id="fullscreen" type="button" class="quiet">Full screen</button>
+      </div>
+    </header>
+    <main>
+      <div class="heading">
+        <div><p class="eyebrow">Good questions. Better currents.</p><h1>Which Tool Should I Use?</h1></div>
+        <p class="intro">Describe the work.<br />Pull the lever. Find your starting point.</p>
+      </div>
+      <div class="stage">
+        <section class="workbench" aria-label="Your work challenge">
+          <form id="game-form">
+            <label for="prompt">What do you want to accomplish?</label>
+            <textarea id="prompt" rows="3" maxlength="2000" placeholder="I want to..." aria-describedby="privacy counter" required></textarea>
+            <div class="input-meta"><span id="privacy">Use fictional examples. No sensitive or customer data.</span><span id="counter">0 / 2,000</span></div>
+            <div class="controls">
+              <button id="spin" class="lever-button" type="submit"><span class="lever" aria-hidden="true"><span></span></span><span>Pull the lever</span></button>
+              <button id="reset" type="button" class="quiet">Reset</button>
+              <label class="mode-control" for="mode">Engine
+                <select id="mode"><option value="rules">Offline rules</option><option value="live">Live AI</option></select>
+              </label>
+            </div>
+          </form>
+          <div id="status" role="status" aria-live="polite" aria-atomic="true">Ready when you are. The spin is showmanship; the choice is based on your prompt.</div>
+          <section id="result" class="result" aria-labelledby="winner" hidden>
+            <p id="result-kicker" class="eyebrow"></p>
+            <h2 id="winner"></h2>
+            <ul id="reasons"></ul>
+            <p id="availability" class="availability"></p>
+            <div id="sources" class="source-links"></div>
+          </section>
+          <div id="ready-card" class="ready-card">
+            <span class="water-mark" aria-hidden="true">&#9671;</span>
+            <p>One challenge.<br /><strong>A smarter starting point.</strong></p>
+            <small>Sometimes the most useful answer is "It Depends."</small>
+          </div>
+        </section>
+        <section class="wheel-panel" aria-label="Microsoft AI tool wheel">
+          <div class="wheel-frame">
+            <div class="pointer" aria-hidden="true"></div>
+            <div class="wheel-viewport">
+              <svg id="wheel" viewBox="0 0 640 640" role="img" aria-labelledby="wheel-title">
+                <title id="wheel-title">Twelve possible Microsoft AI starting points, including It Depends</title>
+                <g id="segments"></g>
+              </svg>
+            </div>
+            <div class="hub" aria-hidden="true"><svg viewBox="0 0 50 60"><path d="M25 3 C20 15 7 28 7 39 A18 18 0 0 0 43 39 C43 28 30 15 25 3Z" /></svg><span>MAKE<br />WAVES</span></div>
+          </div>
+          <p class="wheel-caption">12 possibilities. No random recommendations.</p>
+          <div id="examples" class="examples" aria-label="Try a water utility example"></div>
+        </section>
+      </div>
+      <details class="guide">
+        <summary>Meet the tools &amp; check the Microsoft guidance</summary>
+        <p>These are overlapping offerings and experiences, not twelve independent products. Microsoft 365 Copilot is the umbrella.
+          Recommendations describe capability fit, not a promise of tenant access. Verified <span id="verified"></span>.</p>
+        <div id="tool-guide" class="tool-guide"></div>
+      </details>
+      <details class="guide live-settings">
+        <summary>Presenter setup &amp; live AI privacy</summary>
+        <p>Live AI sends this prompt to your configured Azure API and model deployment. It does not read your Microsoft 365 data.
+          Sign in with an authorized presenter account. No prompts are saved by this page or application logs.
+          Your organization's Azure/model data-processing policies still apply.</p>
+        <p id="configuration-status"></p>
+        <button id="signin" type="button" class="quiet">Sign in for Live AI</button>
+        <p>Offline mode works without Azure configuration. Its intent rules have limited understanding; close choices become "It Depends."</p>
+      </details>
+      <footer>Educational tool guidance only. This game does not perform tasks or operate water infrastructure. Human oversight stays in the loop.</footer>
+    </main>
+    <noscript>This interactive game needs JavaScript. Enable it to enter a prompt and spin the wheel.</noscript>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-api/
+which-tool/auth.js
+api/local.settings.json
+.env
+.env.*
+!.env.example
+test-results/
+.azure/*
+!.azure/deployment-plan.md
+infra/main.json

@@ -29,7 +29,18 @@ This creates value through:
 
 ## Local preview
 
-From the repo root, run:
+Install and build from the repo root (Node 22 or later):
+
+```powershell
+npm ci
+npm run build
+npm run preview
+```
+
+Then open http://localhost:8000, or http://localhost:8000/which-tool/ for the game.
+The preview server binds only to this computer and serves JavaScript modules with the
+correct MIME type, including on Windows. The original unbuilt landing page can also be
+previewed directly (use the built preview above for the game):
 
 ```bash
 python -m http.server 8000
@@ -40,6 +51,77 @@ Then open http://localhost:8000 in a browser.
 ## GitHub Pages publishing
 
 This site is set up to deploy automatically via GitHub Pages using a GitHub Actions workflow on pushes to the main branch.
+The workflow tests the recommendation/API logic, builds the browser assets, and publishes **only**
+the static `dist` directory. Backend code, tests, developer dependencies, and local settings are not published.
+
+## Which Tool Should I Use?
+
+[`which-tool/`](which-tool/) is a water-utility-themed, projector-friendly tool-selection game.
+Enter a fictional business outcome, pull the lever, and get a Microsoft AI starting point with
+one to three explanations and official Microsoft source links. The wheel lands on the recommendation;
+it does not select a random product.
+
+The 12 choices include Microsoft 365 Copilot, Copilot Chat, Copilot Studio, Cowork, Code, Autopilot,
+Agent Builder, GitHub Copilot, Microsoft Foundry, Copilot in Office Apps, Copilot Notebook
+(officially Copilot Notebooks), and It Depends. These overlap: Microsoft 365 Copilot is an umbrella,
+not a competing product independent of all the experiences inside it.
+
+- **Offline rules** is the default and needs no backend. It uses weighted intent rules, handles
+  reviewed utility examples and ambiguous cases, and keeps prompts in the browser. It has limited
+  natural-language understanding; it is not an LLM.
+- **Live AI** uses an authenticated Azure API and a configured model, grounded in the same curated
+  Microsoft catalog. It offers more nuanced reasoning for arbitrary audience prompts. No runtime
+  browsing, tenant-document access, or task execution occurs.
+- If live mode is unconfigured, unavailable, invalid, or takes longer than 12 seconds, the page
+  visibly explains the failure and labels its fallback as an **offline rules** result.
+- Full screen, light/dark mode, keyboard controls, reset/cancellation, editable utility examples,
+  reduced-motion support, and a readable product guide are included.
+- Use fictional scenarios only. Do not enter personal information, credentials, or sensitive
+  infrastructure details. This is educational guidance, not authority to operate utility systems.
+
+The shared catalog in [`which-tool/catalog.mjs`](which-tool/catalog.mjs) records official source links,
+product boundaries, caveats, and the verification date. Review it before each presentation:
+Code is marked Frontier preview and Autopilot private preview based on the verified Microsoft sources.
+No recommendation promises a feature is licensed or enabled in the customer's tenant.
+
+### Enable Live AI
+
+Follow [`api/README.md`](api/README.md). Live mode requires an Entra-authorized presenter,
+an Azure Functions API, durable quota storage, and a compatible Azure OpenAI deployment in Microsoft Foundry.
+No Azure resources are created by the site build. Keep all secrets and model configuration server-side.
+
+Only public connection identifiers belong in [`which-tool/config.mjs`](which-tool/config.mjs).
+Rebuild after changing that file. **Without this setup, only offline recommendations are available.**
+
+The repository is now configured for the provisioned Azure API. After building and opening
+the game, use Presenter setup to sign in as the authorized presenter. Offline rules remains
+the default. Publishing the static frontend to GitHub Pages is a separate commit/push step.
+
+### Validation
+
+```powershell
+npm ci
+npm ci --prefix api
+npm test
+npm run build
+npx playwright install chromium
+npm run test:browser
+npm run build:api
+npm run test:packages
+```
+
+Node tests cover 48 reviewed recommendation scenarios, input/result contracts, wheel geometry,
+JWT validation, durable quota contention, and API error paths. Chromium checks the actual wheel,
+all 12 landing positions, projector font sizes, live-mode contracts using a mock API, accessibility
+surfaces, fallback/reset behavior, and responsive layouts. Mocked live tests do **not** establish
+real model quality or tenant access.
+Package tests additionally verify that the published site excludes the API and that the
+API deployment package contains its shared catalog and locked dependency manifest.
+
+Before using a configured live model, review its choices on the same scenario set in
+[`tests/core.test.mjs`](tests/core.test.mjs). Target at least 90% agreement with reviewed acceptable
+choices (document valid overlapping alternatives), 100% valid output, and no unsupported product claims.
+An authenticated real-service smoke test and this semantic review remain prerequisites for a live presentation.
 
 ## Detailed deployment plan
 
@@ -90,6 +172,10 @@ Microsoft Defender for Cloud strengthens the security posture by continuously id
 - `index.html` — executive proposal landing page
 - `styles.css` — visual design and responsive layout
 - `script.js` — lightweight enhancement logic
+- `which-tool/` — interactive Microsoft AI tool-selection game and shared evidence catalog
+- `api/` — separately deployed authenticated live recommendation service
+- `scripts/` — static-site build and API packaging
+- `tests/` — recommendation and browser checks
 - `.github/workflows/pages.yml` — GitHub Actions Pages deployment
 - `.nojekyll` — prevents Jekyll processing on GitHub Pages
 
