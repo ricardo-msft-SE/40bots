@@ -61,10 +61,13 @@ button:disabled, select:disabled { cursor: wait; opacity: .6; }
 :focus-visible { outline: 3px solid var(--cp-accent); outline-offset: 4px; }
 a { color: var(--cp-link); }
 [hidden] { display: none !important; }
-.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 3vw; border-bottom: 1px solid var(--cp-border); background: var(--cp-bg-elevated); }
-.home-link { text-decoration: none; font-weight: 700; color: var(--cp-text); }
+.topbar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; padding: 16px 3vw; border-bottom: 1px solid var(--cp-border); background: var(--cp-bg-elevated); }
+.home-link { justify-self: start; text-decoration: none; font-weight: 700; color: var(--cp-text); }
 .home-link span { padding: 0 12px; color: var(--cp-border-strong); }
-.toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.brand-link { display: inline-flex; align-items: center; justify-self: center; gap: 12px; min-height: 44px; font-size: 18px; font-weight: 700; white-space: nowrap; text-decoration: none; }
+.brand-link:hover { text-decoration: underline; }
+.brand-link img { display: block; width: 40px; height: 40px; border: 1px solid var(--cp-border-strong); border-radius: 50%; object-fit: cover; }
+.toolbar { display: flex; align-items: center; justify-self: end; flex-wrap: wrap; gap: 8px; max-width: 100%; }
 .quiet { background: var(--cp-bg-elevated); }
 .badge { border: 1px solid var(--cp-accent); background: var(--cp-accent-soft); color: var(--cp-accent); border-radius: .625rem; padding: 8px 12px; font-size: 14px; font-weight: 700; }
 main { max-width: 1840px; margin: auto; padding: 24px 40px; }
@@ -138,7 +141,10 @@ footer { color: var(--cp-text-muted); font-size: 12px; padding-top: 24px; }
   .tool-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
-  .topbar { align-items: start; flex-direction: column; padding: 16px; }
+  .topbar { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 12px; padding: 16px; }
+  .home-link { justify-self: center; }
+  .brand-link { grid-row: 1; }
+  .toolbar { justify-self: center; justify-content: center; }
   main { padding: 24px 16px; }
   .stage { grid-template-columns: minmax(0, 1fr); }
   .heading { margin-bottom: 24px; }

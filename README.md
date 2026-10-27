@@ -61,6 +61,7 @@ Enter a fictional business outcome, pull the lever, and get a Microsoft AI start
 one to three explanations and official Microsoft source links. The wheel lands on the recommendation;
 it does not select a random product.
 The wheel's circular portrait stays upright while the tool segments spin.
+The centered header logo reuses that portrait and links to TeamworkCowbell.com in a new tab.
 
 Every choice other than Microsoft 365 Copilot includes a "Why not Microsoft 365 Copilot?"
 bullet. The shared catalog supplies that comparison in both modes, retaining at most two

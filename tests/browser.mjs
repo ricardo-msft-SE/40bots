@@ -63,6 +63,17 @@ try {
   }));
   check(portrait.loaded, "The supplied center portrait loads at its original resolution");
   check(portrait.fit === "cover" && portrait.clipped, "The portrait fills a circular crop");
+  const brand = page.getByRole("link", { name: "TeamworkCowbell.com", exact: true });
+  check(await brand.getAttribute("href") === "https://teamworkcowbell.com/", "Header branding links to TeamworkCowbell.com");
+  check(await brand.getAttribute("target") === "_blank" && await brand.getAttribute("rel") === "noopener noreferrer", "Brand link opens safely without replacing the game");
+  const logo = await brand.locator("img").evaluate((image) => ({
+    loaded: image.complete && image.naturalWidth === 400,
+    width: image.getBoundingClientRect().width,
+    radius: getComputedStyle(image).borderRadius
+  }));
+  check(logo.loaded && logo.width === 40 && logo.radius === "50%", "Header reuses the portrait as a small circular logo");
+  const brandBox = await brand.boundingBox();
+  check(Math.abs(brandBox.x + brandBox.width / 2 - 960) < 1, "Branding is centered in the projector header");
   const sizes = await page.evaluate(() => ({
     input: parseFloat(getComputedStyle(document.getElementById("prompt")).fontSize),
     overflow: document.documentElement.scrollWidth > innerWidth
@@ -201,7 +212,7 @@ try {
   await result(page);
   await mkdir(new URL("../test-results/", import.meta.url), { recursive: true });
   await page.screenshot({ path: fileURLToPath(new URL("../test-results/projector.png", import.meta.url)) });
-  for (const viewport of [{ width: 1366, height: 768 }, { width: 390, height: 844 }]) {
+  for (const viewport of [{ width: 1366, height: 768 }, { width: 800, height: 1024 }, { width: 390, height: 844 }]) {
     await page.setViewportSize(viewport);
     const overflow = await page.evaluate(() => [...document.querySelectorAll("body *")].filter((element) =>
       element.getBoundingClientRect().right > innerWidth + 1).slice(0, 8).map((element) => ({
@@ -209,6 +220,17 @@ try {
     })));
     check(!(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)), `No horizontal overflow at ${viewport.width}px: ${JSON.stringify(overflow)}`);
     check(await page.locator("#spin").isVisible(), "Lever remains visible at responsive size");
+    const headerLayout = await page.locator(".topbar").evaluate((header) => {
+      const brand = header.querySelector(".brand-link").getBoundingClientRect();
+      const boxes = [...header.children].map((element) => element.getBoundingClientRect());
+      return {
+        centered: Math.abs(brand.x + brand.width / 2 - innerWidth / 2) < 1,
+        overlap: boxes.some((a, i) => boxes.slice(i + 1).some((b) =>
+          a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top))
+      };
+    });
+    check(headerLayout.centered, `Header branding stays centered at ${viewport.width}px`);
+    check(!headerLayout.overlap, `Header links and controls do not overlap at ${viewport.width}px`);
     const centered = await page.locator(".hub").evaluate((hub) => {
       const circle = hub.getBoundingClientRect();
       const frame = hub.parentElement.getBoundingClientRect();

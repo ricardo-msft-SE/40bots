@@ -2,6 +2,69 @@
 
 Status: Deployed
 
+## Autopilot guidance publication (approved)
+
+The user explicitly requested deployment of the Azure updates after main commit
+`d8483a3a6fcd010be82609cf1ae44eb972004ef2` was published to Pages. Publish that commit's
+API package, including updated Autopilot background-monitoring guidance and the shared
+catalog. Infrastructure and the deployment script are unchanged since the prior verified
+Azure update; no reprovisioning, new resources, quota changes or counter resets are needed.
+Retain the existing approved subscription, eastus2 group, identity, model and private storage.
+
+### All validation checks pass (Autopilot guidance publication)
+
+1. Core validation: CLI/authentication, Bicep compilation, provider validation and what-if
+   with the actual API audience. Preview only; do not apply unrelated infrastructure drift.
+2. Docker build: not applicable to this Node 22 ZIP deployment.
+3. Azure Policy validation: preserve effective private storage and managed-identity controls.
+4. Build verification: unit/API tests, API package and package-boundary checks; retain the
+   successful main-commit static build and 114 browser assertions from Pages verification.
+5. Static roles: unchanged resource-scoped blob/table/monitoring roles and existing
+   Cognitive Services OpenAI User access; confirm effective roles after deployment.
+6. Publish through the existing guarded Publish stage, verify registration/CORS/auth,
+   and test the user's exact background-inbox-monitoring prompt through Live AI.
+
+### 7. Validation Proof (Autopilot guidance publication)
+
+Validation completed on 2026-10-27; core checks recorded at 13:02:17 UTC:
+
+- Confirmed main commit `d8483a3a6fcd010be82609cf1ae44eb972004ef2` and a clean source
+  worktree before recording this deployment revision. Infrastructure and the Publish
+  script have no differences from the previously deployed `88ed6d4` infrastructure.
+- Installed validation helper: CLI/authentication, Bicep compilation, subscription
+  provider validation and what-if passed using the actual API audience. Existing
+  nullable-module warnings remain; the helper's property-level create/modify/delete
+  counts are not resource-level changes and are not approval to apply infrastructure.
+- `npm test` and `npm run build:api` passed; `npm run test:packages` passed both tests.
+  The matching main-commit Pages build/deployment passed, including 114 browser assertions.
+- Account/tenant and eastus2 group matched the approved target. Readback confirmed
+  25 requests/minute and 700/day; storage public networking and shared keys remain
+  disabled, with Function VNet integration present. No policy exceptions are requested.
+- Static RBAC review applies to unchanged resource-scoped storage/monitoring definitions.
+  Existing model inference permissions will be read back after publication.
+- Installed workflow reached StaticRoleVerification using PowerShell 7. No validation
+  failures remain. Only application-package publication is needed.
+
+### Deployment verification (Autopilot guidance publication)
+
+- Published the API package successfully on 2026-10-27 at 13:04:53 UTC using the existing
+  guarded Publish stage. The recommend function remained registered.
+- OPTIONS from the approved Pages origin returned 204 with CORS; unauthenticated POST
+  returned 401. Live quota settings remain 25/minute and 700/day, with no counter reset.
+- Effective identity roles remain Cognitive Services OpenAI User, Storage Blob Data Owner,
+  Storage Table Data Contributor and Monitoring Metrics Publisher. No resources were
+  created, reprovisioned or relaxed; model and network configuration are unchanged.
+- Reloaded the public Pages game, confirmed the portrait loaded, and signed in through
+  the normal presenter flow. Eight real authenticated model requests returned HTTP 200,
+  valid catalog results and the Live AI badge; none used offline fallback.
+- The user's exact project-risk inbox prompt chose Autopilot in all three repetitions.
+  A Teams background-monitoring variant also chose Autopilot. Broad work-context lookup,
+  recurring delegated briefing, explicit connector workflow and outcome-first app creation
+  retained their expected M365, Cowork, Studio and Code choices respectively.
+- All eight results respected the three-bullet/160-character limits; every non-M365 result
+  included the curated comparison. The displayed Autopilot result retained its private
+  preview/access caveat. These checks consumed eight requests under the existing quotas.
+
 ## Quota and explanation update (approved)
 
 The user requested 25 requests/minute and 700/day per presenter, then publication of
