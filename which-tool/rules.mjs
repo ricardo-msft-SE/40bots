@@ -34,7 +34,9 @@ function depends(bullets) {
 
 function withoutExclusions(text) {
   return text.replace(/\b(?:do not|don't|not|without|no need to)\s+(?:use\s+)?[^,.;!?]+/g, (clause) =>
-    /\b(code|coding)\b/.test(clause) && /\b(do not code|don't code)\b/.test(clause) ? clause : "");
+    /\b(code|coding)\b/.test(clause) && /\b(do not code|don't code)\b/.test(clause) ||
+    /^(?:not (?:actively )?using (?:my |the |a )?(?:computer|laptop|device)|not at (?:my|the) (?:computer|desk)|not (?:online|logged in)|without (?:waiting|another prompt|me\b|my\b))/.test(clause)
+      ? clause : "");
 }
 
 export function classifyPrompt(value) {
@@ -64,6 +66,18 @@ export function classifyPrompt(value) {
         "Clarify which outcome you want first; the larger solution may use both."
       ]);
     }
+  }
+  const workChannels = /\b(emails?|inbox|outlook|teams|chats?|channels?|threads?|projects?)\b/.test(text);
+  const monitoring = /\b(monitor(?:s|ing)?|watch(?:es|ing)?|on the lookout|keep (?:an eye|tabs)|look(?:ing)? out for)\b/.test(text);
+  const ongoing = /\b(always|continuous(?:ly)?|continual(?:ly)?|ongoing|in the background|as soon as|whenever|around.the.clock|24\/7|on the lookout|keep (?:watching|monitoring|an eye|tabs))\b/.test(text) ||
+    /\b(while|when|even if)\b.*\b(away|asleep|offline|sleep|not (?:actively )?using|not at|not online|not logged in)\b/.test(text) ||
+    /\bwithout (waiting|another prompt|me|my)\b/.test(text);
+  const notifications = /\b(alert|notify|tell|inform) (me|us)\b|\blet (me|us) know\b/.test(text);
+  const buildingSolution = /\b(build|create|develop|implement|configure|design)\b.*\b(workflow|connector|agent|chatbot|bot|app|script|runtime)\b/.test(text);
+  if (workChannels && monitoring && (ongoing || notifications) && !buildingSolution &&
+      !/\b(just once|one.off|one.time|single check)\b/.test(text)) {
+    scores.get("autopilot").score += 18;
+    scores.get("autopilot").reasons.unshift("You want ongoing monitoring of work signals and proactive updates, even while you are away.");
   }
   const change = (id, amount) => { scores.get(id).score += amount; };
   if (scores.get("studio").score >= 15) change("builder", -15);

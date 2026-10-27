@@ -138,6 +138,9 @@ test("model request preserves the scenario with stable structured-output generat
   }, () => {});
   assert.deepEqual(await services.recommend(prompt), expected);
   assert.deepEqual(sent.messages[1], { role: "user", content: prompt });
+  assert.ok(sent.messages[0].content.includes("Prefer Autopilot when the primary goal is ongoing background monitoring"));
+  assert.ok(sent.messages[0].content.includes('does not require the user to say "digital teammate"'));
+  assert.ok(sent.messages[0].content.includes("recurrence alone does not establish Autopilot"));
   assert.equal(sent.temperature, 0);
   assert.equal(sent.store, false);
   assert.equal(sent.response_format.type, "json_schema");

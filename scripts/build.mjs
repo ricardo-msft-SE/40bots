@@ -11,7 +11,7 @@ for (const name of ["index.html", "styles.css", "script.js", ".nojekyll", "deplo
   await cp(path.join(root, name), path.join(out, name), { recursive: true });
 }
 const gameFiles = (await readdir(path.join(root, "which-tool"))).filter((name) =>
-  [".html", ".css", ".mjs"].includes(path.extname(name)) && name !== "auth-entry.mjs");
+  [".html", ".css", ".mjs", ".jpg"].includes(path.extname(name)) && name !== "auth-entry.mjs");
 for (const name of gameFiles) await cp(path.join(root, "which-tool", name), path.join(out, "which-tool", name));
 await build({
   entryPoints: [path.join(root, "which-tool", "auth-entry.mjs")],

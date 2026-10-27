@@ -53,9 +53,9 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "autopilot", label: "Copilot Autopilot", wheel: ["Copilot", "Autopilot"],
-    m365Comparison: "Why not Microsoft 365 Copilot? The distinguishing need is a persistent proactive teammate, not an on-demand work assistant.",
-    description: "A persistent proactive personal digital teammate with its own identity and memory, pursuing ongoing goals.",
-    contrast: "An ongoing teammate across days and projects, rather than a single delegated deliverable or merely a scheduled prompt.",
+    m365Comparison: "Why not Microsoft 365 Copilot? This needs ongoing background work and proactive follow-through, not only on-demand work assistance.",
+    description: "A cloud-hosted proactive digital teammate that watches work channels and pursues ongoing goals, even while you are away.",
+    contrast: "Prefer for ongoing monitoring, surfacing risks, and follow-through without a fresh prompt. Own identity and memory support this; users need not request them explicitly.",
     availability: "Private preview in Microsoft's September 2026 announcement. Confirm current access; not assumed available in your tenant.",
     sourceIds: ["autopilot", "cowork"]
   },
@@ -153,5 +153,5 @@ export const EXAMPLES = Object.freeze([
   { title: "Meter-data code", prompt: "Debug our Python meter-data parser in the repository and add unit tests for missing readings." },
   { title: "Leak tracker app", prompt: "I do not code. Build a simple interactive leak-report tracker app from my description and let me refine it in a live preview." },
   { title: "Custom AI application", prompt: "Build a custom AI application for document retrieval with model selection, evaluations, private networking, and tracing." },
-  { title: "A digital teammate", prompt: "Give me a persistent digital teammate with its own identity and memory to proactively follow up on supplier reviews over several weeks." }
+  { title: "A digital teammate", prompt: "Always watch my inbox for signs that a supplier project is going off track and alert me, even when I am away from my computer." }
 ]);

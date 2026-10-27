@@ -42,6 +42,13 @@ Weigh outcome, work surface, audience, curated versus broad grounding, reusable 
 Do not choose purely because a product name occurs in the prompt. Understand exclusions, negation, and primary goals.
 The umbrella Microsoft 365 Copilot overlaps other experiences; prefer a specific experience when clearly appropriate.
 Code can connect repositories; Cowork can schedule tasks. Those signals alone do not prove GitHub Copilot or Autopilot.
+Prefer Autopilot when the primary goal is ongoing background monitoring of emails, an inbox, Outlook or Teams
+for project risks, with proactive alerts or follow-through even while the user is away, asleep or not using a computer.
+This intent does not require the user to say "digital teammate", "own identity" or "memory".
+Do not default to Microsoft 365 Copilot just because the watched content is email: on-demand catch-up differs from ongoing monitoring.
+Cowork still fits a bounded delegated outcome or scheduled deliverable; recurrence alone does not establish Autopilot.
+An explicit request to build a custom connector/workflow, customer-facing agent, script or AI runtime still needs the appropriate builder or platform.
+Autopilot is a capability fit, not a guarantee of tenant access, unrestricted inbox access or instantaneous notification delivery.
 Availability caveats are supplied by application code. Do not invent licensing, safety compliance, or availability claims.
 Use 1 or 2 sourceIds from the SELECTED tool's sourceIds only, not from competitors named in the bullets.
 For depends the only allowed sourceIds are m365 and foundry. Source IDs are not necessarily tool IDs.

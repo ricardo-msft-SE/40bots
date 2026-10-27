@@ -8,7 +8,7 @@ import { TOOLS } from "../which-tool/catalog.mjs";
 import { selectedIndex } from "../which-tool/wheel.mjs";
 
 const root = path.resolve(fileURLToPath(new URL("../dist/", import.meta.url)));
-const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript", ".svg": "image/svg+xml" };
+const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript", ".svg": "image/svg+xml", ".jpg": "image/jpeg" };
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   let name = decodeURIComponent(url.pathname);
@@ -56,6 +56,13 @@ try {
   check(await page.locator(".segment").count() === 12, "All twelve segments are rendered");
   check(await page.locator(".wheel-label").count() === 12, "All twelve labels are rendered");
   check(await page.locator(".tool-card").count() === 12, "Readable tool legend exists");
+  const portrait = await page.locator(".hub img").evaluate((image) => ({
+    loaded: image.complete && image.naturalWidth === 400 && image.naturalHeight === 400,
+    fit: getComputedStyle(image).objectFit,
+    clipped: getComputedStyle(image.parentElement).overflow === "hidden" && getComputedStyle(image.parentElement).borderRadius === "50%"
+  }));
+  check(portrait.loaded, "The supplied center portrait loads at its original resolution");
+  check(portrait.fit === "cover" && portrait.clipped, "The portrait fills a circular crop");
   const sizes = await page.evaluate(() => ({
     input: parseFloat(getComputedStyle(document.getElementById("prompt")).fontSize),
     overflow: document.documentElement.scrollWidth > innerWidth
@@ -92,6 +99,13 @@ try {
   check((await page.locator("#status").textContent()).includes("Fullscreen denied"), "Fullscreen failure is visible");
   await page.locator("#theme").click();
   check(["dark", "light"].includes(await page.locator("html").getAttribute("data-theme")), "Theme changes without losing UI");
+  await page.locator("#mode").selectOption("rules");
+  await page.getByRole("button", { name: "A digital teammate", exact: true }).click();
+  await page.locator("#spin").click();
+  await result(page);
+  check(await page.locator("#winner").textContent() === "Copilot Autopilot", "Background inbox monitoring chooses Autopilot without product-specific vocabulary");
+  check((await page.locator("#reasons").textContent()).includes("ongoing monitoring"), "Autopilot reasoning explains the background-monitoring intent");
+  check((await page.locator("#availability").textContent()).includes("Private preview"), "Autopilot keeps its access caveat");
 
   await configureLive(page);
   let response = { toolId: "chat", bullets: ["An interactive answer fits."], sourceIds: ["chat"] };
@@ -150,6 +164,7 @@ try {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await submit(page, "Draft a Word document.");
   check(await page.locator("#spin").isDisabled(), "Lever locks during animated turn");
+  check(await page.locator(".hub").evaluate((hub) => hub.getAnimations({ subtree: true }).length === 0), "Center portrait stays upright while the wheel spins");
   await result(page);
   check(await page.locator("#winner").textContent() === "Copilot in Office Apps", "Animated spin finishes on selected tool");
   await page.unroute("https://api.example.test/**");
@@ -194,6 +209,14 @@ try {
     })));
     check(!(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)), `No horizontal overflow at ${viewport.width}px: ${JSON.stringify(overflow)}`);
     check(await page.locator("#spin").isVisible(), "Lever remains visible at responsive size");
+    const centered = await page.locator(".hub").evaluate((hub) => {
+      const circle = hub.getBoundingClientRect();
+      const frame = hub.parentElement.getBoundingClientRect();
+      return Math.abs(circle.width - circle.height) < 1 &&
+        Math.abs(circle.x + circle.width / 2 - frame.x - frame.width / 2) < 1 &&
+        Math.abs(circle.y + circle.height / 2 - frame.y - frame.height / 2) < 1;
+    });
+    check(centered, `Portrait stays circular and centered at ${viewport.width}px`);
   }
   await page.locator(".wheel-frame").scrollIntoViewIfNeeded();
   await page.locator(".wheel-frame").screenshot({ path: fileURLToPath(new URL("../test-results/mobile-wheel.png", import.meta.url)) });

@@ -9,9 +9,13 @@ test("published site is an explicit static-only artifact", async () => {
   const gameFiles = await readdir(new URL("../dist/which-tool/", import.meta.url));
   assert.ok(gameFiles.includes("auth.js"));
   assert.ok(!gameFiles.includes("auth-entry.mjs"));
-  for (const name of ["index.html", "styles.css", "catalog.mjs", "app.mjs", "rules.mjs", "wheel.mjs", "config.mjs"]) {
+  for (const name of ["index.html", "styles.css", "catalog.mjs", "app.mjs", "rules.mjs", "wheel.mjs", "config.mjs", "wheel-center.jpg"]) {
     assert.ok(gameFiles.includes(name));
   }
+  assert.deepEqual(
+    await readFile(new URL("../dist/which-tool/wheel-center.jpg", import.meta.url)),
+    await readFile(new URL("../which-tool/wheel-center.jpg", import.meta.url))
+  );
 });
 test("API package includes shared catalog and an installable locked manifest, not local settings", async () => {
   const manifest = JSON.parse(await readFile(new URL("../dist-api/package.json", import.meta.url)));

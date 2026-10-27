@@ -60,6 +60,7 @@ the static `dist` directory. Backend code, tests, developer dependencies, and lo
 Enter a fictional business outcome, pull the lever, and get a Microsoft AI starting point with
 one to three explanations and official Microsoft source links. The wheel lands on the recommendation;
 it does not select a random product.
+The wheel's circular portrait stays upright while the tool segments spin.
 
 Every choice other than Microsoft 365 Copilot includes a "Why not Microsoft 365 Copilot?"
 bullet. The shared catalog supplies that comparison in both modes, retaining at most two
@@ -70,6 +71,12 @@ The 12 choices include Microsoft 365 Copilot, Copilot Chat, Copilot Studio, Cowo
 Agent Builder, GitHub Copilot, Microsoft Foundry, Copilot in Office Apps, Copilot Notebook
 (officially Copilot Notebooks), and It Depends. These overlap: Microsoft 365 Copilot is an umbrella,
 not a competing product independent of all the experiences inside it.
+
+Autopilot is considered for ongoing monitoring of work channels and proactive updates while
+the user is away, without requiring phrases such as "own identity" or "memory." One-off work
+summaries, scheduled deliverables and explicitly built workflows remain distinct choices.
+The same distinction is included in Live AI guidance. This is capability guidance, not a
+promise of immediate notifications or tenant access; Autopilot's preview caveat still applies.
 
 - **Offline rules** is the default and needs no backend. It uses weighted intent rules, handles
   reviewed utility examples and ambiguous cases, and keeps prompts in the browser. It has limited

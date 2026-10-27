@@ -110,9 +110,8 @@ select { padding: 10px 8px; }
 .segment.selected { fill: var(--cp-accent-soft); stroke: var(--cp-accent); stroke-width: 4; }
 .wheel-label { fill: var(--cp-text); font-size: 20px; font-weight: 700; text-anchor: middle; pointer-events: none; }
 .pointer { position: absolute; z-index: 3; left: calc(50% - 17px); top: -13px; width: 34px; height: 42px; background: var(--cp-accent); clip-path: polygon(0 0, 100% 0, 50% 100%); }
-.hub { position: absolute; inset: 36%; border: 5px double var(--cp-border-strong); background: var(--cp-surface); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--cp-accent); }
-.hub svg { height: 38%; width: 38%; fill: var(--cp-accent); }
-.hub span { font-size: clamp(10px, 1.2vw, 22px); line-height: 1.1; font-weight: 800; letter-spacing: .15em; text-align: center; }
+.hub { position: absolute; inset: 36%; border: 5px double var(--cp-border-strong); background: var(--cp-surface); border-radius: 50%; overflow: hidden; }
+.hub img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .wheel-caption { margin: 12px 0 16px; text-align: center; color: var(--cp-text-muted); font-size: 14px; }
 .examples { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 660px; margin: 0 auto; }
 .examples button { font-size: 13px; padding: 8px 12px; min-height: 40px; background: var(--cp-bg-elevated); }
@@ -146,7 +145,6 @@ footer { color: var(--cp-text-muted); font-size: 12px; padding-top: 24px; }
   textarea { font-size: 28px; padding: 16px; }
   .wheel-panel { grid-row: 2; }
   .wheel-frame { max-width: 480px; }
-  .hub span { font-size: 16px; }
   .tool-guide { grid-template-columns: minmax(0, 1fr); }
   .input-meta { flex-wrap: wrap; }
 }
