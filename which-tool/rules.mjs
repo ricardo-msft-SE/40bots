@@ -2,7 +2,7 @@ import { TOOLS, enrichResult, validatePrompt, requiresSafetyReview } from "./cat
 
 // Each match is an intent signal, not a tool-name shortcut.
 const signals = [
-  ["m365", 6, /\b(find|summari[sz]e|catch up|search|what|bring together)\b.*\b(emails?|meetings?|teams|chats?|sharepoint|documents?)\b/, "Your request needs context from permitted Microsoft 365 work content."],
+  ["m365", 6, /\b(find|summari[sz]e|catch (?:(?:me|us) )?up|search|what|bring together)\b.*\b(emails?|meetings?|teams|chats?|sharepoint|documents?)\b/, "Your request needs context from permitted Microsoft 365 work content."],
   ["m365", 3, /\b(across|company|organization|organisation|work context|work data)\b/, "Cross-work context is more useful here than a single selected file."],
   ["chat", 7, /\b(explain|brainstorm|ideas|research|what is|what are|compare|rewrite|draft|summari[sz]e)\b/, "You want an interactive answer, research, or a draft you can review."],
   ["chat", 4, /\b(public|web|general|pasted|provided text|plain language)\b/, "A conversational starting point fits supplied content or general information."],
@@ -43,7 +43,7 @@ export function classifyPrompt(value) {
   const original = validatePrompt(value).toLowerCase().replace(/[’]/g, "'");
   if (requiresSafetyReview(original)) {
     return depends([
-      "Safety-critical utility controls need qualified engineering review, not a tool-selection game.",
+      "Safety-critical controls need qualified engineering review, not a tool-selection game.",
       "Clarify whether you want a human-reviewed analysis or a change to an operational system.",
       "No recommendation here authorizes AI to operate infrastructure."
     ]);

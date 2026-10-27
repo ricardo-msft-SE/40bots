@@ -56,6 +56,8 @@ try {
   check(await page.locator(".segment").count() === 12, "All twelve segments are rendered");
   check(await page.locator(".wheel-label").count() === 12, "All twelve labels are rendered");
   check(await page.locator(".tool-card").count() === 12, "Readable tool legend exists");
+  check(await page.locator("#examples button").count() === 15, "All fifteen workplace examples are available");
+  check(await page.locator(".heading .eyebrow").textContent() === "Big ideas. Bold spins. More cowbell!", "Festive subtitle replaces the utility theme");
   const portrait = await page.locator(".hub img").evaluate((image) => ({
     loaded: image.complete && image.naturalWidth === 400 && image.naturalHeight === 400,
     fit: getComputedStyle(image).objectFit,
@@ -80,7 +82,7 @@ try {
   }));
   check(sizes.input >= 36, "Projector input font is at least 36px");
   check(!sizes.overflow, "No horizontal overflow at 1920px");
-  await page.getByRole("button", { name: "Outage message", exact: true }).click();
+  await page.getByRole("button", { name: "Customer update", exact: true }).click();
   check((await page.locator("#prompt").inputValue()).includes("Word document"), "Example fills editable input");
   await page.locator("#spin").focus();
   await page.keyboard.press("Enter");
@@ -93,8 +95,10 @@ try {
   check(layout.bullets >= 28, "Projector result bullets are at least 28px");
   check(await page.locator("#reasons li").filter({ hasText: /^Why not Microsoft 365 Copilot\?/ }).count() === 1, "Offline result explains why not Microsoft 365 Copilot");
   check(layout.resultBottom <= 1080, `Result is on screen (${layout.resultBottom}px)`);
+  const examplesBox = await page.locator("#examples").boundingBox();
+  check(examplesBox.y + examplesBox.height <= 1080, "All fifteen example buttons fit on the projector");
   await page.locator("#mode").selectOption("live");
-  await submit(page, "Explain water conservation.");
+  await submit(page, "Explain effective teamwork.");
   await result(page);
   check((await page.locator("#status").textContent()).includes("not configured"), "Missing live config is explicit");
   check(await page.locator("#mode-badge").textContent() === "Offline rules", "Fallback is labeled rules");
@@ -111,7 +115,14 @@ try {
   await page.locator("#theme").click();
   check(["dark", "light"].includes(await page.locator("html").getAttribute("data-theme")), "Theme changes without losing UI");
   await page.locator("#mode").selectOption("rules");
-  await page.getByRole("button", { name: "A digital teammate", exact: true }).click();
+  for (const title of ["Catch me up", "Find a decision", "Connect the dots", "My commitments"]) {
+    await page.getByRole("button", { name: title, exact: true }).click();
+    await page.locator("#spin").click();
+    await result(page);
+    check(await page.locator("#winner").textContent() === "Microsoft 365 Copilot", `${title} recommends Microsoft 365 Copilot`);
+    check(await page.locator("#reasons li").filter({ hasText: /^Why not Microsoft 365 Copilot\?/ }).count() === 0, "Microsoft 365 Copilot examples do not contradict their recommendation");
+  }
+  await page.getByRole("button", { name: "Project risk lookout", exact: true }).click();
   await page.locator("#spin").click();
   await result(page);
   check(await page.locator("#winner").textContent() === "Copilot Autopilot", "Background inbox monitoring chooses Autopilot without product-specific vocabulary");
@@ -200,7 +211,7 @@ try {
   await timeoutPage.route("https://api.example.test/**", () => {});
   await timeoutPage.goto(`${base}/which-tool/`);
   await timeoutPage.locator("#mode").selectOption("live");
-  await submit(timeoutPage, "Explain water conservation.");
+  await submit(timeoutPage, "Explain effective teamwork.");
   await result(timeoutPage);
   check((await timeoutPage.locator("#status").textContent()).includes("12 seconds"), "Live timeout has explicit fallback");
   await timeoutPage.close();
@@ -208,7 +219,7 @@ try {
   await page.unroute("https://api.example.test/**");
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.locator("#mode").selectOption("rules");
-  await submit(page, "Draft an outage notice in Word.");
+  await submit(page, "Draft a product launch announcement in Word.");
   await result(page);
   await mkdir(new URL("../test-results/", import.meta.url), { recursive: true });
   await page.screenshot({ path: fileURLToPath(new URL("../test-results/projector.png", import.meta.url)) });

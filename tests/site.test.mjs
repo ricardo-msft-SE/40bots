@@ -15,6 +15,9 @@ test("page exposes the requested header, input limits, accessible result, motion
   assert.ok(page.includes('<img src="./wheel-center.jpg" alt="" width="40" height="40" />'));
   assert.ok(page.includes('<img src="./wheel-center.jpg" alt="" width="400" height="400" />'));
   assert.ok(!page.includes("WAVES"));
+  assert.ok(page.includes('<p class="eyebrow">Big ideas. Bold spins. More cowbell!</p>'));
+  assert.ok(page.includes('aria-label="Try a workplace example"'));
+  assert.ok(!/\b(water|utility|utilities|currents)\b/i.test(page));
   for (const token of ['maxlength="2000"', 'aria-live="polite"', 'id="mode"', 'id="reset"', 'id="winner"', 'id="fullscreen"']) {
     assert.ok(page.includes(token));
   }

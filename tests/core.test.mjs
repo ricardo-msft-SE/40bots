@@ -8,6 +8,8 @@ export const cases = [
   ["m365", "Find what we agreed across our Teams chats, emails and SharePoint documents."],
   ["m365", "Catch up on work across meetings, emails, and documents in our organization."],
   ["m365", "Bring together our work context across emails and meetings."],
+  ["m365", "Catch me up across our emails, Teams chats and meeting notes."],
+  ["m365", "Catch us up on the project across meetings, emails and SharePoint documents."],
   ["chat", "Explain how a water meter works in plain language."],
   ["chat", "Brainstorm ideas for a public water conservation campaign."],
   ["chat", "Research public information about rainwater harvesting."],
@@ -90,8 +92,20 @@ for (const [expected, prompt] of cases) {
     }
   });
 }
-test("all editable examples produce valid results", () => {
-  EXAMPLES.forEach(({ prompt }) => validateResult(classifyPrompt(prompt)));
+test("15 workplace examples cover every choice with four Microsoft 365 Copilot recommendations", () => {
+  const expected = ["office", "studio", "cowork", "notebook", "github", "code", "foundry", "autopilot",
+    "m365", "m365", "m365", "m365", "chat", "builder", "depends"];
+  assert.equal(EXAMPLES.length, 15);
+  assert.equal(new Set(EXAMPLES.map(({ title }) => title)).size, 15);
+  const actual = EXAMPLES.map(({ title, prompt }, i) => {
+    const result = classifyPrompt(prompt);
+    validateResult(result);
+    assert.equal(result.toolId, expected[i], title);
+    assert.ok(!/\b(water|utility|utilities|leak|meter|outage)\b/i.test(`${title} ${prompt}`));
+    return result.toolId;
+  });
+  assert.equal(actual.filter((id) => id === "m365").length, 4);
+  assert.equal(new Set(actual).size, TOOLS.length);
 });
 test("every non-Microsoft 365 choice gets a bounded, idempotent comparison in both modes", () => {
   for (const tool of TOOLS) {

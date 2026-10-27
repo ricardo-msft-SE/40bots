@@ -56,12 +56,15 @@ the static `dist` directory. Backend code, tests, developer dependencies, and lo
 
 ## Which Tool Should I Use?
 
-[`which-tool/`](which-tool/) is a water-utility-themed, projector-friendly tool-selection game.
+[`which-tool/`](which-tool/) is a festive, projector-friendly tool-selection game for everyday work.
 Enter a fictional business outcome, pull the lever, and get a Microsoft AI starting point with
 one to three explanations and official Microsoft source links. The wheel lands on the recommendation;
 it does not select a random product.
 The wheel's circular portrait stays upright while the tool segments spin.
 The centered header logo reuses that portrait and links to TeamworkCowbell.com in a new tab.
+The red subtitle is "Big ideas. Bold spins. More cowbell!" Fifteen editable workplace examples
+cover all twelve choices, including four Microsoft 365 Copilot scenarios for catching up,
+finding decisions, connecting work context and reviewing commitments.
 
 Every choice other than Microsoft 365 Copilot includes a "Why not Microsoft 365 Copilot?"
 bullet. The shared catalog supplies that comparison in both modes, retaining at most two
@@ -80,17 +83,17 @@ The same distinction is included in Live AI guidance. This is capability guidanc
 promise of immediate notifications or tenant access; Autopilot's preview caveat still applies.
 
 - **Offline rules** is the default and needs no backend. It uses weighted intent rules, handles
-  reviewed utility examples and ambiguous cases, and keeps prompts in the browser. It has limited
+  reviewed workplace examples and ambiguous cases, and keeps prompts in the browser. It has limited
   natural-language understanding; it is not an LLM.
 - **Live AI** uses an authenticated Azure API and a configured model, grounded in the same curated
   Microsoft catalog. It offers more nuanced reasoning for arbitrary audience prompts. No runtime
   browsing, tenant-document access, or task execution occurs.
 - If live mode is unconfigured, unavailable, invalid, or takes longer than 12 seconds, the page
   visibly explains the failure and labels its fallback as an **offline rules** result.
-- Full screen, light/dark mode, keyboard controls, reset/cancellation, editable utility examples,
+- Full screen, light/dark mode, keyboard controls, reset/cancellation, editable workplace examples,
   reduced-motion support, and a readable product guide are included.
 - Use fictional scenarios only. Do not enter personal information, credentials, or sensitive
-  infrastructure details. This is educational guidance, not authority to operate utility systems.
+  business data. This is educational guidance, not authority to execute tasks or operate systems.
 
 The shared catalog in [`which-tool/catalog.mjs`](which-tool/catalog.mjs) records official source links,
 product boundaries, caveats, and the verification date. Review it before each presentation:

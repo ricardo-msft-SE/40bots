@@ -101,7 +101,7 @@ export const TOOLS = Object.freeze([
     id: "depends", label: "It Depends", wheel: ["It", "Depends"],
     m365Comparison: "Why not Microsoft 365 Copilot? A work assistant is not yet a justified choice; clarify the outcome, constraints or human-review needs.",
     description: "The decision needs a missing constraint, spans competing approaches, is out of this catalog, or involves high-impact operations.",
-    contrast: "Explain the decision boundary instead of inventing a winner. Never recommend autonomous control of utility infrastructure.",
+    contrast: "Explain the decision boundary instead of inventing a winner. Never recommend autonomous control of safety-critical infrastructure.",
     availability: "Educational starting point, not operational, engineering, safety, procurement, or licensing advice.",
     sourceIds: ["m365", "foundry"]
   }
@@ -146,12 +146,19 @@ export function enrichResult(raw, mode) {
 }
 
 export const EXAMPLES = Object.freeze([
-  { title: "Outage message", prompt: "Draft a reassuring outage notice for residents in a Word document that I can edit." },
-  { title: "Customer-service agent", prompt: "Build a customer-facing agent on our website that answers billing questions and creates cases in our CRM." },
-  { title: "Maintenance briefing", prompt: "Prepare a maintenance briefing from our Teams messages and SharePoint files, create a document, then email it to the supervisors." },
-  { title: "Policy reference room", prompt: "Compare only these selected safety policies and inspection notes in a focused workspace, with answers grounded in those references." },
-  { title: "Meter-data code", prompt: "Debug our Python meter-data parser in the repository and add unit tests for missing readings." },
-  { title: "Leak tracker app", prompt: "I do not code. Build a simple interactive leak-report tracker app from my description and let me refine it in a live preview." },
-  { title: "Custom AI application", prompt: "Build a custom AI application for document retrieval with model selection, evaluations, private networking, and tracing." },
-  { title: "A digital teammate", prompt: "Always watch my inbox for signs that a supplier project is going off track and alert me, even when I am away from my computer." }
+  { title: "Customer update", prompt: "Draft a friendly product launch announcement for customers in a Word document that I can edit." },
+  { title: "Customer support agent", prompt: "Build a customer-facing agent on our website that answers product questions and creates support cases in our CRM." },
+  { title: "Project briefing", prompt: "Prepare a project briefing from our Teams messages and SharePoint files, create a document, then email it to the team." },
+  { title: "Policy reference room", prompt: "Compare only these selected team policies and onboarding notes in a focused workspace, with answers grounded in those references." },
+  { title: "Code cleanup", prompt: "Debug our Python invoice-data parser in the repository and add unit tests for missing fields." },
+  { title: "Task tracker app", prompt: "I do not code. Build a simple team task tracker app from my description and let me refine it in a live preview." },
+  { title: "Custom AI application", prompt: "Build a custom AI application for searching company documents with model selection, retrieval, evaluations, and tracing." },
+  { title: "Project risk lookout", prompt: "Always watch my inbox for signs that a project is going off track and alert me, even when I am away from my computer." },
+  { title: "Catch me up", prompt: "Catch me up on the launch project across my Teams chats, emails, meetings and SharePoint documents." },
+  { title: "Find a decision", prompt: "Find what we agreed about the launch date across our meeting notes, Teams chats and emails." },
+  { title: "Connect the dots", prompt: "Bring together the current status of our hiring project across emails, meetings, Teams chats and SharePoint documents." },
+  { title: "My commitments", prompt: "Find the commitments I made across my emails, meetings and Teams chats so I can plan my week." },
+  { title: "Brainstorm ideas", prompt: "Brainstorm creative ideas for an employee mentoring program. I want a conversation to explore options." },
+  { title: "Team FAQ agent", prompt: "Create a simple internal knowledge-only FAQ agent grounded in our team's SharePoint policies and onboarding documents." },
+  { title: "Too many goals", prompt: "I need an editable Excel workbook and a reusable knowledge agent for onboarding. Neither is the primary goal yet." }
 ]);
