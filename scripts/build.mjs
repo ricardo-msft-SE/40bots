@@ -7,7 +7,7 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const out = path.join(root, "dist");
 await rm(out, { recursive: true, force: true });
 await mkdir(path.join(out, "which-tool"), { recursive: true });
-for (const name of ["index.html", "styles.css", "script.js", ".nojekyll", "assets", "deployment-plan"]) {
+for (const name of ["index.html", "styles.css", "script.js", ".nojekyll", "deployment-plan"]) {
   await cp(path.join(root, name), path.join(out, name), { recursive: true });
 }
 const gameFiles = (await readdir(path.join(root, "which-tool"))).filter((name) =>

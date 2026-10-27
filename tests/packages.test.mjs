@@ -5,7 +5,7 @@ import { RESPONSE_SCHEMA } from "../dist-api/api/src/core.mjs";
 
 test("published site is an explicit static-only artifact", async () => {
   const files = await readdir(new URL("../dist/", import.meta.url));
-  assert.deepEqual(files.sort(), [".nojekyll", "assets", "deployment-plan", "index.html", "script.js", "styles.css", "which-tool"].sort());
+  assert.deepEqual(files.sort(), [".nojekyll", "deployment-plan", "index.html", "script.js", "styles.css", "which-tool"].sort());
   const gameFiles = await readdir(new URL("../dist/which-tool/", import.meta.url));
   assert.ok(gameFiles.includes("auth.js"));
   assert.ok(!gameFiles.includes("auth-entry.mjs"));
