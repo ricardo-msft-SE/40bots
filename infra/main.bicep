@@ -143,8 +143,8 @@ module api './app/api.bicep' = {
       AZURE_OPENAI_API_VERSION: '2024-10-21'
       QUOTA_TABLE_ENDPOINT: 'https://${storage.outputs.name}.table.${environment().suffixes.storage}'
       QUOTA_TABLE_NAME: 'ToolGameQuota'
-      REQUESTS_PER_MINUTE: '10'
-      REQUESTS_PER_DAY: '100'
+      REQUESTS_PER_MINUTE: '25'
+      REQUESTS_PER_DAY: '700'
     }
     virtualNetworkSubnetId: vnetEnabled ? serviceVirtualNetwork.outputs.appSubnetID : ''
   }

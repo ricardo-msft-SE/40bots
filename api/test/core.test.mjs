@@ -19,6 +19,7 @@ test("authenticated recommendation returns catalog-controlled live result and sa
   const result = await handleRecommend(input, dependencies({ log: (event) => events.push(event) }));
   assert.equal(result.status, 200);
   assert.equal(result.jsonBody.mode, "live");
+  assert.ok(result.jsonBody.bullets.at(-1).startsWith("Why not Microsoft 365 Copilot? "));
   assert.ok(result.jsonBody.availabilityNote);
   assert.equal(result.headers["Access-Control-Allow-Origin"], input.origin);
   assert.equal(result.headers["Cache-Control"], "no-store");

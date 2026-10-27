@@ -73,6 +73,7 @@ try {
     resultBottom: document.getElementById("sources").getBoundingClientRect().bottom
   }));
   check(layout.bullets >= 28, "Projector result bullets are at least 28px");
+  check(await page.locator("#reasons li").filter({ hasText: /^Why not Microsoft 365 Copilot\?/ }).count() === 1, "Offline result explains why not Microsoft 365 Copilot");
   check(layout.resultBottom <= 1080, `Result is on screen (${layout.resultBottom}px)`);
   await page.locator("#mode").selectOption("live");
   await submit(page, "Explain water conservation.");
@@ -110,6 +111,7 @@ try {
     const rotation = await page.locator("#wheel").evaluate((el) => Number(/rotate\(([-.\d]+)deg\)/.exec(el.style.transform)[1]));
     check(selectedIndex(rotation, TOOLS.length) === TOOLS.indexOf(tool), `Pointer lands on ${tool.id}`);
     check(await page.locator("#mode-badge").textContent() === "Live AI", "Live result is labeled");
+    check(await page.locator("#reasons li").filter({ hasText: /^Why not Microsoft 365 Copilot\?/ }).count() === (tool.id === "m365" ? 0 : 1), `Comparison is correct for ${tool.id}`);
   }
   response = {
     toolId: "autopilot",
@@ -141,6 +143,7 @@ try {
   await submit(page, "Automatically control chlorine dosing.");
   await result(page);
   check(await page.locator("#winner").textContent() === "It Depends", "Operational-control fallback requires human review");
+  check(await page.locator("#reasons li").filter({ hasText: /^Why not Microsoft 365 Copilot\?/ }).count() === 1, "Safety fallback explains why not Microsoft 365 Copilot");
   check((await page.locator("#status").textContent()).includes("human review"), "Operational-control rejection is explicit");
   statusCode = 200;
   response = { toolId: "office", bullets: ["An editable document fits."], sourceIds: ["office"] };

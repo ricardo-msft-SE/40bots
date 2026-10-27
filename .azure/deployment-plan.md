@@ -2,6 +2,64 @@
 
 Status: Deployed
 
+## Quota and explanation update (approved)
+
+The user requested 25 requests/minute and 700/day per presenter, then publication of
+all pending changes to main. Update service defaults, local examples and Bicep together.
+Apply only those two settings to the existing Function; do not reprovision networking,
+identities or the model, and do not reset existing quota counters. Publish the API package
+with the shared Microsoft 365 Copilot comparison, then publish the static site through main.
+The existing approved subscription, eastus2 resource group and presenter remain unchanged.
+The higher daily limit permits seven times as many model calls; it is not a spending cap.
+
+### All validation checks pass (quota and explanation update)
+
+1. Core validation: CLI/authentication, Bicep build, provider validation and what-if
+   using the actual API audience. Review preview only; do not apply unrelated drift.
+2. Optional lint: review Bicep warnings.
+3. Azure Policy validation: retain private storage, managed identity and existing ingress.
+4. Build verification: unit/API tests, static/API packages, package-boundary and browser tests.
+5. Static roles: verify unchanged resource-scoped storage, monitoring and model roles.
+6. Deployment verification: read back both live settings, confirm API readiness and an
+   authenticated recommendation, then verify the Pages workflow and published assets.
+
+### 7. Validation Proof (quota and explanation update)
+
+Validated on 2026-10-27 before changing the live settings:
+
+- `npm test`: 83 passing tests, including exact 25/minute and 700/day boundaries,
+  UTC reset and preserved usage when limits increase.
+- `npm run build`, `npm run build:api`: passed.
+- `npm run test:packages`: 2 passing tests; `npm run test:browser`: 106 assertions passed.
+- Installed `azure-validate` Bicep helper with subscription scope, eastus2 and a temporary
+  parameter file containing the actual API audience: CLI/authentication, Bicep compilation,
+  provider validation and what-if all passed. Existing BCP318 warnings remain unchanged.
+- Provider preview reported 24 Deploy, 4 Ignore and 4 Unsupported resource entries.
+  The helper's property-level create/modify/delete counts are not reliable. Unsupported
+  entries are existing dynamic role assignments. No full-template deployment is authorized
+  for this update; change only the two Function settings and publish application code.
+- Account/tenant and eastus2 group matched the approved target. Live settings were still
+  10/minute and 100/day; storage public access remained Disabled, shared keys false, and
+  Function VNet integration present. Subscription policy metadata was readable; no
+  directly scoped storage assignment was listed, so existing inherited restrictions
+  remain in force without exemptions or network changes.
+- Static RBAC review: unchanged Blob Data Owner, Table Data Contributor and Monitoring
+  Metrics Publisher assignments remain resource-scoped. The existing model-access
+  assignment is not being reprovisioned; verify its effective role after publication.
+- Validation workflow reached StaticRoleVerification using PowerShell 7. No validation
+  failures remain; deployment and publication verification are still pending.
+
+### Deployment verification (quota and explanation update)
+
+- On 2026-10-27, updated only `REQUESTS_PER_MINUTE=25` and `REQUESTS_PER_DAY=700`
+  on the existing Function. Readback confirmed both values; existing counters were retained.
+- `scripts/deploy-game.ps1 -Stage Publish` succeeded with the shared comparison-bullet
+  catalog. The `recommend` function remained registered.
+- Approved-origin OPTIONS returned 204 with the correct CORS headers; unauthenticated
+  POST returned 401. Live role readback confirmed unchanged resource-scoped model,
+  blob, table and monitoring roles. No infrastructure was reprovisioned.
+- Static publication uses the main branch Pages workflow; verify its run after pushing.
+
 ## Private-network revision (approved and deployed)
 
 The user selected planning a policy-compliant private network, with review before deployment.

@@ -86,6 +86,35 @@ test("quota retries collisions, fails closed, and checks both windows in a trans
   for (const entity of table.rows.values()) entity.count = NaN;
   await assert.rejects(() => take(oid), (error) => error.status === 503);
 });
+test("default quota allows exactly 25 requests per minute and 700 per UTC day", async () => {
+  const table = fakeTable();
+  const start = Date.parse("2026-10-27T15:00:00Z");
+  let instant = new Date(start);
+  const take = createQuotaStore(table, { now: () => instant });
+  for (let i = 0; i < 25; i++) await take(oid);
+  await assert.rejects(() => take(oid), (error) => error.code === "quota_exceeded");
+  for (let i = 25; i < 700; i++) {
+    instant = new Date(start + Math.floor(i / 25) * 60000);
+    await take(oid);
+  }
+  assert.equal(table.rows.get(`${oid}-2026-10-27/day`).count, 700);
+  instant = new Date("2026-10-27T23:59:00Z");
+  await assert.rejects(() => take(oid), (error) => error.code === "quota_exceeded");
+  instant = new Date("2026-10-28T00:00:00Z");
+  await take(oid);
+  assert.equal(table.rows.get(`${oid}-2026-10-28/day`).count, 1);
+});
+test("raising quota limits preserves existing usage", async () => {
+  const table = fakeTable();
+  const now = () => new Date("2026-10-27T15:00:00Z");
+  const previous = createQuotaStore(table, { perMinute: 10, perDay: 100, now });
+  for (let i = 0; i < 10; i++) await previous(oid);
+  await assert.rejects(() => previous(oid), (error) => error.code === "quota_exceeded");
+  const raised = createQuotaStore(table, { now });
+  for (let i = 10; i < 25; i++) await raised(oid);
+  await assert.rejects(() => raised(oid), (error) => error.code === "quota_exceeded");
+  assert.equal(table.rows.get(`${oid}-2026-10-27/day`).count, 25);
+});
 test("configuration errors do not silently enable anonymous live access", () => {
   assert.throws(() => createServices({}, () => {}), /Missing server setting/);
 });

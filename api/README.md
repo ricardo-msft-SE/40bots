@@ -17,8 +17,10 @@ delegated Entra bearer token and `{"prompt":"a fictional work scenario"}`. The A
    A conservative shared safety-intent gate rejects operational-control requests with HTTP 422
    before model inference; the page explicitly falls back to the rules-based It Depends guidance.
 4. Atomically reserves both minute/day quotas in Azure Table Storage using ETags and a
-   same-partition transaction. Defaults: 10 requests/minute and 100/day, per presenter.
+   same-partition transaction. Defaults: 25 requests/minute and 700/day, per presenter.
    Failed model calls also count to prevent unlimited retries from increasing cost.
+   Minute windows follow UTC clock minutes; daily windows reset at UTC midnight.
+   Raising a limit preserves requests already counted in the current window.
 5. Makes one bounded Azure OpenAI chat-completions request, with the shared curated
    tool catalog and a strict structured-output schema. There are no tools, browsing,
    agents, file uploads, or vector stores.
@@ -26,6 +28,10 @@ delegated Entra bearer token and `{"prompt":"a fictional work scenario"}`. The A
    source IDs. Model-provided URLs, availability, and mode are not trusted.
 
 Successful responses are top-level `{toolId, bullets, sourceIds, availabilityNote, mode:"live"}`.
+Shared result enrichment reserves the last bullet for a catalog-controlled "Why not
+Microsoft 365 Copilot?" comparison whenever another choice wins, including It Depends.
+It retains up to two scenario explanations and is idempotent when the browser enriches
+the API result again. Microsoft 365 Copilot selections keep their original bullets.
 Errors return `{error:{code,message,requestId}}` from the request handler.
 The browser uses catalog URLs and displays live failures and rules fallback explicitly.
 
@@ -49,8 +55,8 @@ After a prompt-quality correction, a 48-scenario live sweep achieved 47 exact ch
 and 48 accepted choices (Chat was a valid alternative for the recipe scenario).
 All 44 model responses passed output/catalog validation; four operational-control
 scenarios were rejected before inference. Future model responses can still vary.
-During setup, the two evaluation sweeps used 88 of the presenter's 100 daily model
-requests; manual spins also count. Quotas reset at UTC midnight; offline mode remains available.
+During setup, the two evaluation sweeps used 88 model requests under the original
+100/day limit; the current limit is 700/day. Manual spins also count; offline mode remains available.
 Provisioning and publishing do not publish the static frontend to GitHub Pages:
 rebuild and use the repository's normal authorized commit/push workflow separately.
 

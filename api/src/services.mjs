@@ -39,7 +39,7 @@ export function createAuthorizer({ tenant, audience, scope, presenters }, keySet
   };
 }
 
-export function createQuotaStore(table, { perMinute = 10, perDay = 100, now = () => new Date() } = {}) {
+export function createQuotaStore(table, { perMinute = 25, perDay = 700, now = () => new Date() } = {}) {
   let initialized;
   return async (oid) => {
     if (!initialized) {
@@ -100,8 +100,8 @@ export function createServices(env, log) {
   const tableName = env.QUOTA_TABLE_NAME || "ToolGameQuota";
   const table = new TableClient(tableEndpoint.href, tableName, credential, { retryOptions: { maxRetries: 2 } });
   const takeQuota = createQuotaStore(table, {
-    perMinute: positiveInt(env.REQUESTS_PER_MINUTE, 10),
-    perDay: positiveInt(env.REQUESTS_PER_DAY, 100)
+    perMinute: positiveInt(env.REQUESTS_PER_MINUTE, 25),
+    perDay: positiveInt(env.REQUESTS_PER_DAY, 700)
   });
   async function recommend(prompt) {
     const controller = new AbortController();

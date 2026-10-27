@@ -23,18 +23,21 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "chat", label: "Copilot Chat", wheel: ["Copilot", "Chat"],
+    m365Comparison: "Why not Microsoft 365 Copilot? A conversational answer fits without requiring broad work-context grounding.",
     description: "Interactive research, questions, brainstorming, and help with supplied content.",
     contrast: "A conversational answer, not necessarily execution. Grounding varies with license and entry point; organizational context is supported in specific contexts.",
     availability: standard, sourceIds: ["chat"]
   },
   {
     id: "studio", label: "Copilot Studio", wheel: ["Copilot", "Studio"],
+    m365Comparison: "Why not Microsoft 365 Copilot? This calls for building an agent with integrations, not only using a work assistant.",
     description: "Create and manage reusable business agents and workflows connected to enterprise systems and multiple channels.",
     contrast: "Prefer over Agent Builder for external service actions, connectors, workflows, or customer-facing channels.",
     availability: standard, sourceIds: ["studio", "builder"]
   },
   {
     id: "cowork", label: "Copilot Cowork", wheel: ["Copilot", "Cowork"],
+    m365Comparison: "Why not Microsoft 365 Copilot? Cowork names the delegated, multistep experience more precisely than the umbrella label.",
     description: "Delegate a bounded, multistep outcome across Microsoft 365: prepare documents, coordinate meetings, and send communications.",
     contrast: "Does the delegated work rather than only explaining it. Supports recurring tasks too; persistence alone does not exclude Cowork. Actions require approval.",
     availability: "Generally available for work/school accounts; personal account preview. Access and action approvals still apply.",
@@ -42,6 +45,7 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "code", label: "Copilot Code", wheel: ["Copilot", "Code"],
+    m365Comparison: "Why not Microsoft 365 Copilot? The goal is to create working software from a description, not work-content assistance.",
     description: "Describe a working app, dashboard, website, or script in plain language and iterate in a live preview.",
     contrast: "Outcome-first software creation, not restricted to developers. Can also work with GitHub repositories.",
     availability: "Frontier preview in the verified Learn documentation. Confirm tenant access before relying on it.",
@@ -49,6 +53,7 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "autopilot", label: "Copilot Autopilot", wheel: ["Copilot", "Autopilot"],
+    m365Comparison: "Why not Microsoft 365 Copilot? The distinguishing need is a persistent proactive teammate, not an on-demand work assistant.",
     description: "A persistent proactive personal digital teammate with its own identity and memory, pursuing ongoing goals.",
     contrast: "An ongoing teammate across days and projects, rather than a single delegated deliverable or merely a scheduled prompt.",
     availability: "Private preview in Microsoft's September 2026 announcement. Confirm current access; not assumed available in your tenant.",
@@ -56,12 +61,14 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "builder", label: "Agent Builder", wheel: ["Agent", "Builder"],
+    m365Comparison: "Why not Microsoft 365 Copilot? Agent Builder names the experience for creating a reusable knowledge agent, not just using one.",
     description: "Quickly create a straightforward declarative agent in Microsoft 365 using dedicated knowledge and instructions.",
     contrast: "A reusable internal knowledge agent, not a one-off notebook. External low-code actions, connectors, and workflows require Studio.",
     availability: standard, sourceIds: ["builder"]
   },
   {
     id: "github", label: "GitHub Copilot", wheel: ["GitHub", "Copilot"],
+    m365Comparison: "Why not Microsoft 365 Copilot? This needs codebase-aware development and tests, rather than a work-content assistant.",
     description: "Developer-centered coding, repository changes, debugging, refactoring, code reviews, and automated tests.",
     contrast: "Assists software engineering; Foundry supplies the custom AI runtime/platform and Code offers outcome-first creation.",
     availability: "GitHub Copilot plan, editor, organization policies, and feature availability apply.",
@@ -69,6 +76,7 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "foundry", label: "Microsoft Foundry", wheel: ["Microsoft", "Foundry"],
+    m365Comparison: "Why not Microsoft 365 Copilot? This needs a custom AI platform with model and deployment control, not an end-user work assistant.",
     description: "Build custom AI applications with model choice, retrieval/tools, evaluations, tracing, and engineering control.",
     contrast: "A platform for building and operating AI, rather than an end-user productivity assistant or just help writing code.",
     availability: "Azure setup, model/region availability, permissions, and consumption costs apply.",
@@ -76,12 +84,14 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "office", label: "Copilot in Office Apps", wheel: ["Copilot in", "Office Apps"],
+    m365Comparison: "Why not Microsoft 365 Copilot? Office Apps names the app-native editing experience within it more precisely.",
     description: "Create or edit a Word document, Excel workbook, PowerPoint presentation, or another supported app artifact.",
     contrast: "Use the app-native context for one artifact; Cowork fits a delegated cross-app outcome.",
     availability: standard, sourceIds: ["office", "m365"]
   },
   {
     id: "notebook", label: "Copilot Notebook", wheel: ["Copilot", "Notebook"],
+    m365Comparison: "Why not Microsoft 365 Copilot? Notebooks names the focused, selected-reference experience more precisely than the umbrella label.",
     description: "Copilot Notebooks: a scoped workspace for focused answers and synthesis using curated references.",
     contrast: "Grounded in selected notebook sources, not broad discovery across the organization or a published business agent. Not a chart builder.",
     availability: "Official name: Copilot Notebooks. Eligible Copilot access and a SharePoint/OneDrive service plan are required for work accounts.",
@@ -89,6 +99,7 @@ export const TOOLS = Object.freeze([
   },
   {
     id: "depends", label: "It Depends", wheel: ["It", "Depends"],
+    m365Comparison: "Why not Microsoft 365 Copilot? A work assistant is not yet a justified choice; clarify the outcome, constraints or human-review needs.",
     description: "The decision needs a missing constraint, spans competing approaches, is out of this catalog, or involves high-impact operations.",
     contrast: "Explain the decision boundary instead of inventing a winner. Never recommend autonomous control of utility infrastructure.",
     availability: "Educational starting point, not operational, engineering, safety, procurement, or licensing advice.",
@@ -126,7 +137,12 @@ export function validateResult(raw) {
 export function enrichResult(raw, mode) {
   if (!["live", "rules"].includes(mode)) throw new Error("Invalid recommendation mode.");
   const result = validateResult(raw);
-  return { ...result, mode, availabilityNote: TOOLS.find(({ id }) => id === result.toolId).availability };
+  const tool = TOOLS.find(({ id }) => id === result.toolId);
+  const bullets = tool.id === "m365" ? result.bullets : [
+    ...result.bullets.filter((text) => text !== tool.m365Comparison).slice(0, 2),
+    tool.m365Comparison
+  ];
+  return { ...validateResult({ ...result, bullets }), mode, availabilityNote: tool.availability };
 }
 
 export const EXAMPLES = Object.freeze([

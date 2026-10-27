@@ -61,6 +61,11 @@ Enter a fictional business outcome, pull the lever, and get a Microsoft AI start
 one to three explanations and official Microsoft source links. The wheel lands on the recommendation;
 it does not select a random product.
 
+Every choice other than Microsoft 365 Copilot includes a "Why not Microsoft 365 Copilot?"
+bullet. The shared catalog supplies that comparison in both modes, retaining at most two
+scenario explanations so the reveal never exceeds three bullets. Comparisons distinguish
+specific experiences from the umbrella offering rather than claiming they are unrelated products.
+
 The 12 choices include Microsoft 365 Copilot, Copilot Chat, Copilot Studio, Cowork, Code, Autopilot,
 Agent Builder, GitHub Copilot, Microsoft Foundry, Copilot in Office Apps, Copilot Notebook
 (officially Copilot Notebooks), and It Depends. These overlap: Microsoft 365 Copilot is an umbrella,

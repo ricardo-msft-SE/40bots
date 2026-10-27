@@ -13,7 +13,7 @@
     "AZURE_OPENAI_API_VERSION": "2024-10-21",
     "QUOTA_TABLE_ENDPOINT": "https://YOUR-STORAGE.table.core.windows.net",
     "QUOTA_TABLE_NAME": "ToolGameQuota",
-    "REQUESTS_PER_MINUTE": "10",
-    "REQUESTS_PER_DAY": "100"
+    "REQUESTS_PER_MINUTE": "25",
+    "REQUESTS_PER_DAY": "700"
   }
 }

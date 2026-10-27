@@ -66,10 +66,36 @@ for (const [expected, prompt] of cases) {
     assert.equal(result.mode, "rules");
     validateResult(result);
     assert.ok(result.bullets.every((bullet) => bullet.length <= 160));
+    if (expected !== "m365") {
+      assert.equal(result.bullets.filter((bullet) => bullet.startsWith("Why not Microsoft 365 Copilot?")).length, 1);
+    }
   });
 }
 test("all editable examples produce valid results", () => {
   EXAMPLES.forEach(({ prompt }) => validateResult(classifyPrompt(prompt)));
+});
+test("every non-Microsoft 365 choice gets a bounded, idempotent comparison in both modes", () => {
+  for (const tool of TOOLS) {
+    for (const mode of ["live", "rules"]) {
+      for (const count of [1, 2, 3]) {
+        const raw = { toolId: tool.id, bullets: ["Scenario fit.", "Important distinction.", "Another constraint."].slice(0, count), sourceIds: [tool.sourceIds[0]] };
+        const original = structuredClone(raw);
+        const result = enrichResult(raw, mode);
+        validateResult(result);
+        assert.deepEqual(raw, original);
+        assert.deepEqual(enrichResult(result, mode), result);
+        if (tool.id === "m365") {
+          assert.deepEqual(result.bullets, raw.bullets);
+        } else {
+          assert.ok(tool.m365Comparison.startsWith("Why not Microsoft 365 Copilot? "));
+          assert.equal(result.bullets.at(-1), tool.m365Comparison);
+          assert.deepEqual(result.bullets.slice(0, -1), raw.bullets.slice(0, 2));
+          assert.ok(result.bullets.length <= 3);
+          assert.ok(tool.m365Comparison.length <= 160);
+        }
+      }
+    }
+  }
 });
 test("input boundaries and exclusions", () => {
   for (const input of ["", "  ", null, 123, "a".repeat(2001)]) assert.throws(() => validatePrompt(input));
