@@ -5,7 +5,7 @@ import { RESPONSE_SCHEMA } from "../dist-api/api/src/core.mjs";
 
 test("published site is an explicit static-only artifact", async () => {
   const files = await readdir(new URL("../dist/", import.meta.url));
-  assert.deepEqual(files.sort(), [".nojekyll", "deployment-plan", "index.html", "script.js", "styles.css", "which-tool"].sort());
+  assert.deepEqual(files.sort(), [".nojekyll", "deployment-plan", "index.html", "script.js", "styles.css", "which-tool", "which-tool-demo"].sort());
   const gameFiles = await readdir(new URL("../dist/which-tool/", import.meta.url));
   assert.ok(gameFiles.includes("auth.js"));
   assert.ok(!gameFiles.includes("auth-entry.mjs"));
@@ -16,6 +16,16 @@ test("published site is an explicit static-only artifact", async () => {
     await readFile(new URL("../dist/which-tool/wheel-center.jpg", import.meta.url)),
     await readFile(new URL("../which-tool/wheel-center.jpg", import.meta.url))
   );
+});
+test("scripted demo publishes only its explicit static assets", async () => {
+  const files = await readdir(new URL("../dist/which-tool-demo/", import.meta.url));
+  assert.deepEqual(files.sort(), ["index.html", "styles.css", "app.mjs", "catalog.mjs", "copilot.svg"].sort());
+  for (const name of files) {
+    assert.deepEqual(
+      await readFile(new URL(`../dist/which-tool-demo/${name}`, import.meta.url)),
+      await readFile(new URL(`../which-tool-demo/${name}`, import.meta.url))
+    );
+  }
 });
 test("API package includes shared catalog and an installable locked manifest, not local settings", async () => {
   const manifest = JSON.parse(await readFile(new URL("../dist-api/package.json", import.meta.url)));

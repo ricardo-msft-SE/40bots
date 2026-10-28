@@ -13,6 +13,10 @@ for (const name of ["index.html", "styles.css", "script.js", ".nojekyll", "deplo
 const gameFiles = (await readdir(path.join(root, "which-tool"))).filter((name) =>
   [".html", ".css", ".mjs", ".jpg"].includes(path.extname(name)) && name !== "auth-entry.mjs");
 for (const name of gameFiles) await cp(path.join(root, "which-tool", name), path.join(out, "which-tool", name));
+await mkdir(path.join(out, "which-tool-demo"), { recursive: true });
+for (const name of ["index.html", "styles.css", "app.mjs", "catalog.mjs", "copilot.svg"]) {
+  await cp(path.join(root, "which-tool-demo", name), path.join(out, "which-tool-demo", name));
+}
 await build({
   entryPoints: [path.join(root, "which-tool", "auth-entry.mjs")],
   outfile: path.join(out, "which-tool", "auth.js"),

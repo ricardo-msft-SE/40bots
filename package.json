@@ -7,7 +7,7 @@
     "preview": "node scripts/preview.mjs",
     "build": "node scripts/build.mjs",
     "build:api": "node scripts/package-api.mjs",
-    "test": "node --test tests/core.test.mjs tests/site.test.mjs api/test/core.test.mjs api/test/services.test.mjs",
+    "test": "node --test tests/core.test.mjs tests/site.test.mjs tests/demo.test.mjs api/test/core.test.mjs api/test/services.test.mjs",
     "test:browser": "node tests/browser.mjs",
     "test:packages": "node --test tests/packages.test.mjs"
   },

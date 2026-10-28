@@ -6,6 +6,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { TOOLS } from "../which-tool/catalog.mjs";
 import { selectedIndex } from "../which-tool/wheel.mjs";
+import { TOOLS as DEMO_TOOLS, DEMOS } from "../which-tool-demo/catalog.mjs";
 
 const root = path.resolve(fileURLToPath(new URL("../dist/", import.meta.url)));
 const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript", ".svg": "image/svg+xml", ".jpg": "image/jpeg" };
@@ -257,6 +258,94 @@ try {
   await page.goto(`${base}/`);
   check(await page.locator('a[href="which-tool/"]').count() >= 2, "Home page exposes game links");
   check(await page.locator("#deployment-visual").count() === 1, "Existing deployment visual remains");
+  const demo = await browser.newPage({ viewport: { width: 1920, height: 1080 }, reducedMotion: "reduce" });
+  demo.on("pageerror", (error) => errors.push(error.message));
+  const demoRequests = [];
+  demo.on("request", (request) => demoRequests.push({ url: request.url(), method: request.method() }));
+  await page.goto(`${base}/which-tool/`);
+  await page.getByText("Meet the tools & check the Microsoft guidance", { exact: true }).click();
+  const demoLink = page.getByRole("link", { name: "scripted Copilot demo wheel" });
+  check(await demoLink.getAttribute("href") === "../which-tool-demo/", "Original game exposes the new demo route");
+  check((await demo.goto(`${base}/which-tool-demo/?scoutTheme=light`)).ok(), "Built demo page loads");
+  check(await demo.locator(".segment").count() === 6 && await demo.locator(".wheel-label").count() === 6, "All six demo segments and labels render");
+  check(await demo.locator("#examples button").count() === 4, "Exactly four starter demos render");
+  check(await demo.locator("#spin").isDisabled() && await demo.locator("#prompt").isDisabled(), "Initial empty state requires a starter");
+  check(await demo.locator("#prompt").inputValue() === "", "Initial prompt is empty");
+  check(!/teamworkcowbell|cowbell/i.test(await demo.locator("body").textContent()), "New page has no cowbell branding");
+  check(await demo.locator(".hub img").evaluate((image) => image.complete && image.naturalWidth === 120), "Official Copilot vector logo loads locally");
+  check(await demo.locator(".hub img").getAttribute("alt") === "Microsoft Copilot", "Logo has an accessible name");
+  check(await demo.locator(".hub img").evaluate((image) => {
+    const style = getComputedStyle(image);
+    return ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft"].every((side) => style[side] === "0px") &&
+      image.clientWidth === image.parentElement.clientWidth && image.clientHeight === image.parentElement.clientHeight &&
+      style.objectFit === "contain";
+  }), "Copilot logo fills the hub without extra padding or cropping");
+  check(await demo.locator("#prompt").evaluate((input) => parseFloat(getComputedStyle(input).fontSize)) >= 36, "Demo projector input remains extra large");
+  for (const scenario of DEMOS) {
+    const starter = demo.getByRole("button", { name: scenario.title, exact: true });
+    await starter.focus();
+    await demo.keyboard.press("Enter");
+    check(await demo.locator("#prompt").inputValue() === scenario.prompt, `${scenario.title}: starter preserves exact prompt`);
+    check(await demo.locator("#prompt").evaluate((input) => input.scrollTop === 0 && input.selectionStart === 0), "Starter shows the beginning of a long prompt");
+    check(await starter.getAttribute("aria-pressed") === "true", `${scenario.title}: selected state is accessible`);
+    check(await demo.locator('#examples button[aria-pressed="true"]').count() === 1, "Only one demo is selected");
+    await demo.locator("#spin").focus();
+    await demo.keyboard.press("Enter");
+    await result(demo);
+    check(await demo.locator("#winner").textContent() === DEMO_TOOLS.find(({ id }) => id === scenario.toolId).label, `${scenario.title}: correct fixed winner`);
+    check(await demo.locator(".segment.selected").getAttribute("data-tool") === scenario.toolId, "Highlighted segment matches the result");
+    const rotation = await demo.locator("#wheel").evaluate((wheel) => Number(/rotate\(([-.\d]+)deg\)/.exec(wheel.style.transform)[1]));
+    check(DEMO_TOOLS[selectedIndex(rotation, 6)].id === scenario.toolId, "Pointer lands on the correct one of six segments");
+    const bullets = await demo.locator("#reasons li").allTextContents();
+    check(bullets.length <= 3 && bullets.every((text) => text.length <= 160), "Explanation bullets respect presentation bounds");
+    check(bullets.some((text) => text.startsWith("Why not Microsoft 365 Copilot?")) === (scenario.toolId !== "m365"), "Specialized outcome explains M365 comparison");
+    const box = await demo.locator("#result").boundingBox();
+    check(box.y + box.height <= 1080, `${scenario.title}: full result fits the projector viewport (${box.y + box.height}px)`);
+    await demo.locator("#prompt").fill("A completely different task, edited for the presentation.");
+    check(await demo.locator("#result").isHidden(), "Editing clears the previous result");
+    await demo.locator("#spin").click();
+    await result(demo);
+    check(await demo.locator(".segment.selected").getAttribute("data-tool") === scenario.toolId, "Edits never change the selected demo mapping");
+  }
+  await demo.locator("#prompt").fill("   ");
+  check(await demo.locator("#spin").isDisabled(), "Whitespace-only prompt cannot spin");
+  await demo.locator("#reset").click();
+  check(await demo.locator("#spin").isDisabled() && await demo.locator("#prompt").inputValue() === "", "Reset restores empty disabled state");
+  check(await demo.locator('#examples button[aria-pressed="true"]').count() === 0, "Reset clears starter selection");
+  await demo.getByRole("button", { name: DEMOS[0].title, exact: true }).click();
+  await demo.emulateMedia({ reducedMotion: "no-preference" });
+  await demo.locator("#spin").click();
+  check(await demo.locator("#spin").isDisabled() && await demo.locator("#prompt").getAttribute("readonly") !== null, "Animation locks lever and prompt editing");
+  check(await demo.locator("#examples button:disabled").count() === 4, "Animation locks starter switching");
+  await demo.locator("#reset").click();
+  await demo.waitForTimeout(3300);
+  check(await demo.locator("#result").isHidden() && await demo.locator("#spin").isDisabled(), "Reset cancels animation without stale reveal");
+  await demo.getByRole("button", { name: DEMOS[2].title, exact: true }).click();
+  await demo.locator("#spin").click();
+  await result(demo);
+  check(await demo.locator(".segment.selected").getAttribute("data-tool") === "builder", "Real animation lands on Agent Builder");
+  check(await demo.locator(".hub").evaluate((hub) => getComputedStyle(hub).transform === "none"), "Logo hub stays upright outside animated wheel");
+  await demo.locator("#theme").click();
+  check(await demo.locator("html").getAttribute("data-theme") === "dark", "Demo theme toggle works");
+  await demo.locator("#fullscreen").click();
+  await demo.waitForFunction(() => Boolean(document.fullscreenElement));
+  check(await demo.locator("#fullscreen").textContent() === "Exit full screen", "Demo fullscreen button tracks presentation mode");
+  await demo.locator("#fullscreen").click();
+  await demo.waitForFunction(() => !document.fullscreenElement);
+  await demo.screenshot({ path: fileURLToPath(new URL("../test-results/demo-projector.png", import.meta.url)) });
+  for (const viewport of [{ width: 1366, height: 768 }, { width: 800, height: 1024 }, { width: 390, height: 844 }]) {
+    await demo.setViewportSize(viewport);
+    check(!await demo.evaluate(() => document.documentElement.scrollWidth > innerWidth), `Demo has no overflow at ${viewport.width}px`);
+    check(await demo.locator("#spin").isVisible() && await demo.locator(".hub img").isVisible(), "Demo lever and logo remain visible");
+  }
+  await demo.locator(".wheel-frame").scrollIntoViewIfNeeded();
+  await demo.locator(".wheel-frame").screenshot({ path: fileURLToPath(new URL("../test-results/demo-mobile-wheel.png", import.meta.url)) });
+  await demo.screenshot({ path: fileURLToPath(new URL("../test-results/demo-mobile.png", import.meta.url)), fullPage: true });
+  check(demoRequests.every(({ url, method }) => url.startsWith(base) && method === "GET" && !/auth|config|\/api\//.test(url)), "Demo loads only local static resources and never calls auth or AI");
+  check(await demo.evaluate(() => localStorage.length === 0 && sessionStorage.length === 0), "Demo does not persist prompt text");
+  await demo.reload();
+  check(await demo.locator("#prompt").inputValue() === "" && await demo.locator("#spin").isDisabled(), "Reload restores the empty state");
+  await demo.close();
   check(errors.length === 0, `No browser errors: ${errors.join("; ")}`);
   console.log(`Browser verification passed: ${checks} assertions, projector/mobile screenshots in test-results.`);
 } finally {

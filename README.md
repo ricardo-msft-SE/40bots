@@ -56,6 +56,35 @@ the static `dist` directory. Backend code, tests, developer dependencies, and lo
 
 ## Which Tool Should I Use?
 
+### Scripted Copilot demo wheel
+
+[`which-tool-demo/`](which-tool-demo/) is a separate, entirely offline presentation game.
+Choose one of four starters, edit its prompt if desired, then pull the lever:
+
+| Starter | Fixed winner |
+| --- | --- |
+| Storm readiness | M365 Copilot |
+| Spreadsheet insights | Copilot in Excel |
+| Maintenance checklist agent | Agent Builder |
+| Executive presentation | Copilot in PowerPoint |
+
+The six-choice wheel also includes Copilot in Outlook and Outlook & Teams; neither
+is selected by these four demos. Outcomes are hard-wired to the selected starter,
+**not** inferred from edited text. Initial load and Reset clear the selection and
+disable the lever until a starter with nonblank text is chosen.
+No sign-in, LLM/API calls, tenant-data access or prompt persistence occurs.
+The maintenance scenario illustrates an agent, not approved electrical-work advice.
+The original game below remains independent and retains its branding.
+
+The unmodified Copilot hub logo is downloaded from Microsoft's
+[official Copilot asset](https://copilot.microsoft.com/static/cmc/favicon.svg)
+and hosted locally as [`copilot.svg`](which-tool-demo/copilot.svg).
+The user confirmed permission to use this asset. Microsoft retains ownership;
+see [Microsoft's trademark guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks).
+The original multicolor logo is an intentional exception to theme-only UI colors.
+
+### Original tool-selection game
+
 [`which-tool/`](which-tool/) is a festive, projector-friendly tool-selection game for everyday work.
 Enter a fictional business outcome, pull the lever, and get a Microsoft AI starting point with
 one to three explanations and official Microsoft source links. The wheel lands on the recommendation;

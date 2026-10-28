@@ -1,0 +1,21 @@
+.demo-game .topbar { grid-template-columns: minmax(0, 1fr) auto; }
+.demo-game .examples { margin: 0 0 16px; max-width: none; }
+.demo-game .examples button { font-size: 16px; min-height: 44px; }
+.demo-game .examples button[aria-pressed="true"] { border-color: var(--cp-accent); background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; }
+.demo-game .demo-note { color: var(--cp-text-muted); font-size: 15px; margin: 12px 0 16px; }
+.demo-game textarea { height: 300px; min-height: 200px; max-height: 400px; }
+.demo-game textarea:disabled { background: var(--cp-bg-elevated); }
+.demo-game .hub img { object-fit: contain; padding: 0; }
+.demo-game .wheel-label { font-size: 25px; }
+.demo-game .choice-note { color: var(--cp-text-muted); text-align: center; font-size: 14px; max-width: 560px; margin: 0 auto; }
+.demo-game .ready-card { padding: 16px 24px; }
+.demo-game .ready-card p { margin-bottom: 8px; }
+.demo-game .result li { font-size: clamp(22px, 1.5vw, 28px); }
+@media (min-width: 1600px) {
+  .demo-game textarea { height: 200px; }
+  .demo-game .demo-note { margin: 8px 0 12px; }
+}
+@media (max-width: 760px) {
+  .demo-game .topbar { grid-template-columns: minmax(0, 1fr); }
+  .demo-game textarea { height: 280px; }
+}
